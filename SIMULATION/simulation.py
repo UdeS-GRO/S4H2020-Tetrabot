@@ -10,7 +10,7 @@
 #     # button = Button(root, text="Get Scale Value", command=sel)
 #     # button.pack(anchor=CENTER)
 #
-#     label = Label(root)
+#     label = Label(root) 
 #     label.pack()
 #
 #     root.mainloop()

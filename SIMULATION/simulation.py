@@ -29,10 +29,10 @@ def deg_to_rad(deg):
 legs = []
 root = Tk()
 
-step_arriere_gauche = [[-40, 80],[-50, 90], [-30, 90],  [-20, 60]]
-step_arriere_droite = [[-40, 80], [-40, 80], [-40, 80], [-40, 80]]
+step_arriere_gauche = [[-40, 80], [-50, 90], [-30, 90], [-20, 60], [-40, 80], [-40, 80], [-40, 80], [-40, 80]]
+step_arriere_droite = [[-40, 80], [-40, 80], [-40, 80], [-40, 80], [-40, 80], [-50, 90], [-30, 90], [-20, 60]]
 step_avant_gauche__ = step_arriere_droite
-step_avant_droite__ = step_arriere_droite
+step_avant_droite__ = step_arriere_gauche
 
 animation_steps = [step_arriere_gauche, step_arriere_droite, step_avant_gauche__, step_avant_droite__]
 steps_len = min(len(step_arriere_gauche), len(step_arriere_droite), len(step_avant_gauche__), len(step_avant_droite__))
@@ -42,26 +42,28 @@ tibia_length = 100
 offset_x = 200
 offset_y = 50
 
+vs_x = 40
+vs_y = 40
+
 
 class GUI(Frame):
 
     def __init__(self):
         super().__init__()
-
+ 
         self.init_ui()
         self.animation_frame = 0
         self.increm = 0
         self.resolution = 10
 
     def init_ui(self):
-        self.master.title("Lines")
+        self.master.title("Walk simulation")
         self.pack(fill=BOTH, expand=1)
 
         self.canvas = Canvas(self)
 
         index = 0
-        vs_x = 0
-        vs_y = 0
+
         for i in range(2):
             for j in range(2):
                 print(index)
@@ -85,6 +87,9 @@ class GUI(Frame):
         off_y = 5
         self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,
                                 offset_y + leg_length + tibia_length / 2 + off_y)
+        self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y + vs_y, 1000,
+                                offset_y + leg_length + tibia_length / 2 + off_y+ vs_y)
+
         self.canvas.create_line(legs[0].posx0, legs[0].posy0, legs[1].posx0, legs[1].posy0, legs[3].posx0,
                                 legs[3].posy0, legs[2].posx0, legs[2].posy0, legs[2].posx0, legs[2].posy0,
                                 legs[0].posx0, legs[0].posy0)

@@ -1,25 +1,7 @@
-# from tkinter import *
-#
-#  CODE TO ADD SLIDERS
-# def main():
-#     root = Tk()
-#     var = DoubleVar()
-#     scale = Scale(root, variable=var)
-#     scale.pack(anchor=CENTER)
-#
-#     # button = Button(root, text="Get Scale Value", command=sel)
-#     # button.pack(anchor=CENTER)
-#
-#     label = Label(root) 
-#     label.pack()
-#
-#     root.mainloop()
-#
-#
-# if __name__ == "__main__":
-#     main()
 import math
 from tkinter import Tk, Canvas, Frame, BOTH
+from inverse_kinematics import inverse_kinematic
+from hardcode import get_positions_walk_1, get_positions_rise
 
 
 def deg_to_rad(deg):
@@ -27,45 +9,41 @@ def deg_to_rad(deg):
 
 
 legs = []
-root = Tk()
-
-step_arriere_gauche = [[-40, 80],[-50, 90], [-30, 90],  [-20, 60]]
-step_arriere_droite = [[-40, 80], [-40, 80], [-40, 80], [-40, 80]]
-step_avant_gauche__ = step_arriere_droite
-step_avant_droite__ = step_arriere_droite
-
-animation_steps = [step_arriere_gauche, step_arriere_droite, step_avant_gauche__, step_avant_droite__]
-steps_len = min(len(step_arriere_gauche), len(step_arriere_droite), len(step_avant_gauche__), len(step_avant_droite__))
-
 leg_length = 100
 tibia_length = 100
 offset_x = 200
 offset_y = 50
+vs_x = 40
+vs_y = 40
+
+animation_steps, steps_len = get_positions_walk_1()
 
 
-class GUI(Frame):
+class GUI():
 
-    def __init__(self):
-        super().__init__()
-
-        self.init_ui()
+    def __init__(self, fenetre, canvas):
+        self.root = fenetre
+        self.canvas = canvas
         self.animation_frame = 0
         self.increm = 0
         self.resolution = 10
+        self.vs_x = 0
+        self.vs_y = 0
+
+        self.init_ui()
 
     def init_ui(self):
-        self.master.title("Lines")
-        self.pack(fill=BOTH, expand=1)
-
-        self.canvas = Canvas(self)
+        # self.master.title("Lines")
+        # self.pack(fill=BOTH, expand=1)
 
         index = 0
-        vs_x = 0
-        vs_y = 0
+
+        index = 0
+
         for i in range(2):
             for j in range(2):
                 print(index)
-                leg = Leg(offset_x + 200 * i - vs_x * j, offset_y + vs_y * j, leg_length, deg_to_rad(0),
+                leg = Leg(offset_x + 200 * i - self.vs_x * j, offset_y + self.vs_y * j, leg_length, deg_to_rad(0),
                           tibia_length,
                           deg_to_rad(0), j)
                 legs.append(leg)
@@ -74,30 +52,47 @@ class GUI(Frame):
         self.canvas.pack(fill=BOTH, expand=1)
         # self.canvas.create_line(55, 85, 155, 85, 105, 180, 55, 85)
 
-    def redraw(self, delete=False):
+    def redraw(self, delete=False, draw_trajectory=True):
         self.canvas.delete("delete")
         if delete:
             self.canvas.delete("all")
         # self.pack(fill=BOTH, expand=1)
 
         for leg in legs:
-            leg.show(self.canvas)
+            leg.show(self.canvas, draw_trajectory)
         off_y = 5
+        index = 0
+        for i in range(2):
+            for j in range(2):
+                leg = legs[index]
+                leg.posx0 = offset_x + 200 * i - self.vs_x * j
+                leg.posy0 = offset_y + self.vs_y * j
+                index += 1
+
         self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,
                                 offset_y + leg_length + tibia_length / 2 + off_y)
         self.canvas.create_line(legs[0].posx0, legs[0].posy0, legs[1].posx0, legs[1].posy0, legs[3].posx0,
                                 legs[3].posy0, legs[2].posx0, legs[2].posy0, legs[2].posx0, legs[2].posy0,
                                 legs[0].posx0, legs[0].posy0)
-        self.canvas.pack(fill=BOTH, expand=1)
+        self.canvas.pack(fill=BOTH, expand=1, padx=15)
 
-    def animate_walk(self):
+    def animate_walk(self, draw_trajectory, draw_3d):
+        if draw_3d:
+            print("yooo")
+            self.vs_x = 40
+            self.vs_y = 40
+        else:
+            self.vs_x = 0
+            self.vs_y = 0
+
         for i in range(len(animation_steps)):
             step = animation_steps[i]
-            angles = step[self.animation_frame]
-            angles_to_go = step[(self.animation_frame + 1) % steps_len]
-            angle0 = angles[0] + self.increm * ((angles_to_go[0] - angles[0]) / self.resolution)
-            angle1 = angles[1] + self.increm * ((angles_to_go[1] - angles[1]) / self.resolution)
-            legs[i].set_angles(deg_to_rad(angle0), deg_to_rad(angle1))
+            positions = step[self.animation_frame]
+            positions_to_go = step[(self.animation_frame + 1) % steps_len]
+            pos0 = positions[0] + self.increm * ((positions_to_go[0] - positions[0]) / self.resolution)
+            pos1 = positions[1] + self.increm * ((positions_to_go[1] - positions[1]) / self.resolution)
+            angle0, angle1 = inverse_kinematic(pos0, pos1, leg_length, tibia_length)
+            legs[i].set_angles(angle0, angle1)
             # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
 
         self.increm += 1
@@ -107,11 +102,11 @@ class GUI(Frame):
 
         if self.animation_frame >= steps_len:
             self.animation_frame = 0
-            self.redraw(True)
+            self.redraw(True, draw_trajectory)
         else:
-            self.redraw()
+            self.redraw(False, draw_trajectory)
 
-        root.after(int(1000 / self.resolution), self.animate_walk)
+        return int(1000 / self.resolution)
 
 
 class Leg:
@@ -134,25 +129,20 @@ class Leg:
         self.angle1 = angle1
         self.angle2 = angle2
 
-    def show(self, canvas):
-        posx1 = self.posx0 + self.length1 * math.sin(self.angle1)
-        posy1 = self.posy0 + self.length1 * math.cos(self.angle1)
+    def show(self, canvas, draw_trajectory):
+        posx1 = self.posx0 + self.length1 * math.cos(self.angle1)
+        posy1 = self.posy0 - self.length1 * math.sin(self.angle1)
 
-        posx2 = posx1 + self.length2 * math.sin(self.angle1 + self.angle2)
-        posy2 = posy1 + self.length2 * math.cos(self.angle1 + self.angle2)
+        posx2 = posx1 + self.length2 * math.cos(self.angle1 + self.angle2)
+        posy2 = posy1 - self.length2 * math.sin(self.angle1 + self.angle2)
 
-        canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color, tags="delete")
-        canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags="delete")
-        canvas.create_line(posx1 - 1, posy1 - 1, posx1 + 2, posy1 + 2, width=2, fill='black', tags="delete")
-        canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black')
-
-
-def main():
-    gui = GUI()
-    root.geometry("800x400+300+300")
-    gui.animate_walk()
-    root.mainloop()
-
-
-if __name__ == '__main__':
-    main()
+        canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color,
+                           tags="delete")  # Line thigh
+        canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags="delete")  # Line tibia
+        canvas.create_line(posx1 - 1, posy1 - 1, posx1 + 2, posy1 + 2, width=2, fill='black',
+                           tags="delete")  # Point thigh
+        if draw_trajectory:
+            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black')  # Point tibia
+        else:
+            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black',
+                               tags="delete")  # Point tibia

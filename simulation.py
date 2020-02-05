@@ -1,7 +1,7 @@
 import math
 from tkinter import Tk, Canvas, Frame, BOTH
 from inverse_kinematics import inverse_kinematic
-from hardcode import get_positions_walk_1
+from hardcode import get_positions_walk_1, get_positions_rise
 
 def deg_to_rad(deg):
     return deg * math.pi / 180
@@ -12,6 +12,8 @@ leg_length = 100
 tibia_length = 100
 offset_x = 200
 offset_y = 50
+vs_x = 40
+vs_y = 40
 
 animation_steps, steps_len = get_positions_walk_1()
 
@@ -32,8 +34,7 @@ class GUI():
 
 
         index = 0
-        vs_x = 0
-        vs_y = 0
+
         for i in range(2):
             for j in range(2):
                 print(index)
@@ -54,9 +55,12 @@ class GUI():
 
         for leg in legs:
             leg.show(self.canvas, draw_trajectory)
-        off_y = 5
-        self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,
-                                offset_y + leg_length + tibia_length / 2 + off_y)
+        off_y = 150
+        self.canvas.create_line(0, offset_y + off_y + vs_y, 1000,
+                                offset_y + 150 + vs_y)
+        self.canvas.create_line(0, offset_y + off_y, 1000,
+                                offset_y + 150 )
+
         self.canvas.create_line(legs[0].posx0, legs[0].posy0, legs[1].posx0, legs[1].posy0, legs[3].posx0,
                                 legs[3].posy0, legs[2].posx0, legs[2].posy0, legs[2].posx0, legs[2].posy0,
                                 legs[0].posx0, legs[0].posy0)

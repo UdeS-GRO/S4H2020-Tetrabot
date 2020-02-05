@@ -3,6 +3,7 @@ from tkinter import Tk, Canvas, Frame, BOTH
 from inverse_kinematics import inverse_kinematic
 from hardcode import get_positions_walk_1
 
+
 def deg_to_rad(deg):
     return deg * math.pi / 180
 
@@ -15,29 +16,30 @@ offset_y = 50
 
 animation_steps, steps_len = get_positions_walk_1()
 
+
 class GUI():
 
     def __init__(self, fenetre, canvas):
-        # super().__init__()
         self.root = fenetre
         self.canvas = canvas
-        self.init_ui()
         self.animation_frame = 0
         self.increm = 0
         self.resolution = 10
+        self.vs_x = 0
+        self.vs_y = 0
+
+        self.init_ui()
 
     def init_ui(self):
         # self.master.title("Lines")
         # self.pack(fill=BOTH, expand=1)
 
-
         index = 0
-        vs_x = 0
-        vs_y = 0
+
         for i in range(2):
             for j in range(2):
                 print(index)
-                leg = Leg(offset_x + 200 * i - vs_x * j, offset_y + vs_y * j, leg_length, deg_to_rad(0),
+                leg = Leg(offset_x + 200 * i - self.vs_x * j, offset_y + self.vs_y * j, leg_length, deg_to_rad(0),
                           tibia_length,
                           deg_to_rad(0), j)
                 legs.append(leg)
@@ -55,6 +57,14 @@ class GUI():
         for leg in legs:
             leg.show(self.canvas, draw_trajectory)
         off_y = 5
+        index = 0
+        for i in range(2):
+            for j in range(2):
+                leg = legs[index]
+                leg.posx0 = offset_x + 200 * i - self.vs_x * j
+                leg.posy0 = offset_y + self.vs_y * j
+                index += 1
+
         self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,
                                 offset_y + leg_length + tibia_length / 2 + off_y)
         self.canvas.create_line(legs[0].posx0, legs[0].posy0, legs[1].posx0, legs[1].posy0, legs[3].posx0,
@@ -62,7 +72,15 @@ class GUI():
                                 legs[0].posx0, legs[0].posy0)
         self.canvas.pack(fill=BOTH, expand=1, padx=15)
 
-    def animate_walk(self, draw_trajectory):
+    def animate_walk(self, draw_trajectory, draw_3d):
+        if draw_3d:
+            print("yooo")
+            self.vs_x = 40
+            self.vs_y = 40
+        else:
+            self.vs_x = 0
+            self.vs_y = 0
+
         for i in range(len(animation_steps)):
             step = animation_steps[i]
             positions = step[self.animation_frame]
@@ -114,10 +132,13 @@ class Leg:
         posx2 = posx1 + self.length2 * math.cos(self.angle1 + self.angle2)
         posy2 = posy1 - self.length2 * math.sin(self.angle1 + self.angle2)
 
-        canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color, tags="delete") # Line thigh
-        canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags="delete") # Line tibia
-        canvas.create_line(posx1 - 1, posy1 - 1, posx1 + 2, posy1 + 2, width=2, fill='black', tags="delete") # Point thigh
-        if not draw_trajectory:
-            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black', tags="delete") # Point tibia
+        canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color,
+                           tags="delete")  # Line thigh
+        canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags="delete")  # Line tibia
+        canvas.create_line(posx1 - 1, posy1 - 1, posx1 + 2, posy1 + 2, width=2, fill='black',
+                           tags="delete")  # Point thigh
+        if draw_trajectory:
+            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black')  # Point tibia
         else:
-            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black') # Point tibia
+            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black',
+                               tags="delete")  # Point tibia

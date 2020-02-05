@@ -29,8 +29,13 @@ def deg_to_rad(deg):
 legs = []
 root = Tk()
 
-step_arriere_gauche = [[-40, 80], [-50, 90], [-30, 90], [-20, 60], [-40, 80], [-40, 80], [-40, 80], [-40, 80]]
-step_arriere_droite = [[-40, 80], [-40, 80], [-40, 80], [-40, 80], [-40, 80], [-50, 90], [-30, 90], [-20, 60]]
+# step_arriere_gauche = [[-40, 80], [-50, 90], [-30, 90], [-20, 60], [-40, 80], [-40, 80], [-40, 80], [-40, 80]]
+# step_arriere_droite = [[-40, 80], [-40, 80], [-40, 80], [-40, 80], [-40, 80], [-50, 90], [-30, 90], [-20, 60]]
+
+ANIMATE = False
+
+step_arriere_gauche = [[30, 0]]
+step_arriere_droite = step_arriere_gauche
 step_avant_gauche__ = step_arriere_droite
 step_avant_droite__ = step_arriere_gauche
 
@@ -40,17 +45,19 @@ steps_len = min(len(step_arriere_gauche), len(step_arriere_droite), len(step_ava
 leg_length = 100
 tibia_length = 100
 offset_x = 200
-offset_y = 50
+offset_y = 200
 
-vs_x = 40
-vs_y = 40
+vs_x = 0
+vs_y = 0
+
+pos = [50, -130]
 
 
 class GUI(Frame):
 
     def __init__(self):
         super().__init__()
- 
+
         self.init_ui()
         self.animation_frame = 0
         self.increm = 0
@@ -85,10 +92,10 @@ class GUI(Frame):
         for leg in legs:
             leg.show(self.canvas)
         off_y = 5
-        self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,
-                                offset_y + leg_length + tibia_length / 2 + off_y)
-        self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y + vs_y, 1000,
-                                offset_y + leg_length + tibia_length / 2 + off_y+ vs_y)
+        # self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,
+        #                         offset_y + leg_length + tibia_length / 2 + off_y)
+        # self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y + vs_y, 1000,
+        #                         offset_y + leg_length + tibia_length / 2 + off_y+ vs_y)
 
         self.canvas.create_line(legs[0].posx0, legs[0].posy0, legs[1].posx0, legs[1].posy0, legs[3].posx0,
                                 legs[3].posy0, legs[2].posx0, legs[2].posy0, legs[2].posx0, legs[2].posy0,
@@ -96,27 +103,33 @@ class GUI(Frame):
         self.canvas.pack(fill=BOTH, expand=1)
 
     def animate_walk(self):
-        for i in range(len(animation_steps)):
-            step = animation_steps[i]
-            angles = step[self.animation_frame]
-            angles_to_go = step[(self.animation_frame + 1) % steps_len]
-            angle0 = angles[0] + self.increm * ((angles_to_go[0] - angles[0]) / self.resolution)
-            angle1 = angles[1] + self.increm * ((angles_to_go[1] - angles[1]) / self.resolution)
-            legs[i].set_angles(deg_to_rad(angle0), deg_to_rad(angle1))
-            # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
+        if ANIMATE:
+            for i in range(len(animation_steps)):
+                step = animation_steps[i]
+                angles = step[self.animation_frame]
+                angles_to_go = step[(self.animation_frame + 1) % steps_len]
+                angle0 = angles[0] + self.increm * ((angles_to_go[0] - angles[0]) / self.resolution)
+                angle1 = angles[1] + self.increm * ((angles_to_go[1] - angles[1]) / self.resolution)
+                legs[i].set_angles(deg_to_rad(angle0), deg_to_rad(angle1))
+                # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
 
-        self.increm += 1
-        if self.increm > self.resolution:
-            self.increm = 0
-            self.animation_frame += 1
+            self.increm += 1
+            if self.increm > self.resolution:
+                self.increm = 0
+                self.animation_frame += 1
 
-        if self.animation_frame >= steps_len:
-            self.animation_frame = 0
-            self.redraw(True)
+            if self.animation_frame >= steps_len:
+                self.animation_frame = 0
+                self.redraw(True)
+            else:
+                self.redraw()
+
+                root.after(int(1000 / self.resolution), self.animate_walk)
         else:
+            [angle0, angle1] = inverse_kinematic(pos[0], pos[1], leg_length, tibia_length)
+            for i in range(4):
+                legs[i].set_angles(angle0, angle1)
             self.redraw()
-
-        root.after(int(1000 / self.resolution), self.animate_walk)
 
 
 class Leg:
@@ -140,16 +153,29 @@ class Leg:
         self.angle2 = angle2
 
     def show(self, canvas):
-        posx1 = self.posx0 + self.length1 * math.sin(self.angle1)
-        posy1 = self.posy0 + self.length1 * math.cos(self.angle1)
+        posx1 = self.posx0 + self.length1 * math.cos(self.angle1)
+        posy1 = self.posy0 - self.length1 * math.sin(self.angle1)
 
-        posx2 = posx1 + self.length2 * math.sin(self.angle1 + self.angle2)
-        posy2 = posy1 + self.length2 * math.cos(self.angle1 + self.angle2)
+        posx2 = posx1 + self.length2 * math.cos(self.angle1 + self.angle2)
+        posy2 = posy1 - self.length2 * math.sin(self.angle1 + self.angle2)
 
         canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color, tags="delete")
         canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags="delete")
         canvas.create_line(posx1 - 1, posy1 - 1, posx1 + 2, posy1 + 2, width=2, fill='black', tags="delete")
         canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black')
+
+
+def inverse_kinematic(x, y, a1, a2):
+    num = x ** 2 + y ** 2 - a1 ** 2 - a2 ** 2
+    denum = 2 * a1 * a2
+    q2 = math.acos(num / denum)
+
+    num = a2 * math.sin(q2)
+    denum = a1 + a2 * math.cos(q2)
+    q1 = math.atan(y / (x + 0.000001)) - math.atan(num / (denum + 0.000001))
+    print("q1 =", 180*q1/math.pi)
+    print("q2=", 180*q2/math.pi)
+    return q1, q2
 
 
 def main():

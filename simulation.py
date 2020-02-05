@@ -27,7 +27,6 @@ def deg_to_rad(deg):
 
 
 legs = []
-root = Tk()
 
 step_arriere_gauche = [[-40, 80],[-50, 90], [-30, 90],  [-20, 60]]
 step_arriere_droite = [[-40, 80], [-40, 80], [-40, 80], [-40, 80]]
@@ -43,10 +42,12 @@ offset_x = 200
 offset_y = 50
 
 
-class GUI(Frame):
+class GUI():
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, fenetre, canvas):
+        # super().__init__()
+        self.root = fenetre
+        self.canvas = canvas
 
         self.init_ui()
         self.animation_frame = 0
@@ -54,10 +55,9 @@ class GUI(Frame):
         self.resolution = 10
 
     def init_ui(self):
-        self.master.title("Lines")
-        self.pack(fill=BOTH, expand=1)
+        # self.master.title("Lines")
+        # self.pack(fill=BOTH, expand=1)
 
-        self.canvas = Canvas(self)
 
         index = 0
         vs_x = 0
@@ -88,7 +88,7 @@ class GUI(Frame):
         self.canvas.create_line(legs[0].posx0, legs[0].posy0, legs[1].posx0, legs[1].posy0, legs[3].posx0,
                                 legs[3].posy0, legs[2].posx0, legs[2].posy0, legs[2].posx0, legs[2].posy0,
                                 legs[0].posx0, legs[0].posy0)
-        self.canvas.pack(fill=BOTH, expand=1)
+        self.canvas.pack(fill=BOTH, expand=1, padx=15)
 
     def animate_walk(self):
         for i in range(len(animation_steps)):
@@ -111,7 +111,7 @@ class GUI(Frame):
         else:
             self.redraw()
 
-        root.after(int(1000 / self.resolution), self.animate_walk)
+        self.root.after(int(1000 / self.resolution), self.animate_walk)
 
 
 class Leg:
@@ -147,12 +147,13 @@ class Leg:
         canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black')
 
 
-def main():
-    gui = GUI()
-    root.geometry("800x400+300+300")
-    gui.animate_walk()
-    root.mainloop()
+# def main():
+#     print("main")
+#     gui = GUI()
+#     root.geometry("800x400+300+300")
+#     gui.animate_walk()
+#     root.mainloop()
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

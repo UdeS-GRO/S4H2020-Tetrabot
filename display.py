@@ -14,7 +14,7 @@ class gui_fat:
         h = 400
         lt = 100  # l tetrabot
 
-        self.var_draw_trajectory = IntVar()
+        self.var_draw_trajectory = IntVar() 
         self.var_3d = IntVar()
 
         canvas1 = Canvas(self.root, width=l, height=h, bg='gray')
@@ -29,7 +29,6 @@ class gui_fat:
 
 
     def main_loop(self):
-        # print(self.var_draw_trajectory.get())
         delay_ms = self.gui.animate_walk(self.var_draw_trajectory.get(),self.var_3d.get())
         self.root.after(delay_ms, self.main_loop)
 

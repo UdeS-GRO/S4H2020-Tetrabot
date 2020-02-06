@@ -16,8 +16,8 @@ def get_positions_walk_1():
 
 def get_positions_rise():
 
-    p1 = 45
-    step_arriere_gauche = [[0, -p1],[0, -(p1+80)]]
+    p1 = 60
+    step_arriere_gauche = [[0, -170],[0, -120]]
     step_arriere_droite = step_arriere_gauche
     step_avant_gauche__ = step_arriere_droite
     step_avant_droite__ = step_arriere_droite

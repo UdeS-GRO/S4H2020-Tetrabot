@@ -2,11 +2,13 @@ import math
 from tkinter import Tk, Canvas, Frame, BOTH
 from inverse_kinematics import inverse_kinematic
 from hardcode import get_positions_walk_1, get_positions_rise
-
+from servotest import init_servos, move as write_to_servos
 
 def deg_to_rad(deg):
-    return deg * math.pi / 180
+    return (deg * math.pi) / 180
 
+def rad_to_deg(rad):
+    return (rad * 180) / math.pi
 
 legs = []
 leg_length = 100
@@ -16,17 +18,18 @@ offset_y = 50
 vs_x = 40
 vs_y = 40
 
-animation_steps, steps_len = get_positions_walk_1()
+animation_steps, steps_len = get_positions_rise()
 
 
 class GUI():
 
     def __init__(self, fenetre, canvas):
+        init_servos()
         self.root = fenetre
         self.canvas = canvas
         self.animation_frame = 0
         self.increm = 0
-        self.resolution = 10
+        self.resolution = 100
         self.vs_x = 0
         self.vs_y = 0
 
@@ -42,7 +45,6 @@ class GUI():
 
         for i in range(2):
             for j in range(2):
-                print(index)
                 leg = Leg(offset_x + 200 * i - self.vs_x * j, offset_y + self.vs_y * j, leg_length, deg_to_rad(0),
                           tibia_length,
                           deg_to_rad(0), j)
@@ -78,13 +80,14 @@ class GUI():
 
     def animate_walk(self, draw_trajectory, draw_3d):
         if draw_3d:
-            print("yooo")
             self.vs_x = 40
             self.vs_y = 40
         else:
             self.vs_x = 0
             self.vs_y = 0
 
+        angles_thigh = []
+        angles_knee = []
         for i in range(len(animation_steps)):
             step = animation_steps[i]
             positions = step[self.animation_frame]
@@ -93,6 +96,14 @@ class GUI():
             pos1 = positions[1] + self.increm * ((positions_to_go[1] - positions[1]) / self.resolution)
             angle0, angle1 = inverse_kinematic(pos0, pos1, leg_length, tibia_length)
             legs[i].set_angles(angle0, angle1)
+
+            
+            # print(rad_to_deg(angle0)+90)
+            angles_thigh.append(rad_to_deg(angle0)+90)
+            angles_knee.append(rad_to_deg(angle1))
+
+        write_to_servos(angles_thigh, angles_knee)
+
             # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
 
         self.increm += 1
@@ -106,7 +117,7 @@ class GUI():
         else:
             self.redraw(False, draw_trajectory)
 
-        return int(1000 / self.resolution)
+        return int(500 / self.resolution)
 
 
 class Leg:

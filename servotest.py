@@ -3,10 +3,17 @@ import time
 
 kit = ServoKit(channels=16)
 
-offset_th_0 = [90,95,115,93]
+offset_th_0 = [90,70,115,93]
 offset_th_1 = [140,127,40,15]
 
 def init_servos():
+    for x in range(len(offset_th_0)):
+        offset=13
+        if x<2:
+            offset_th_0[x] -= offset
+        else:
+            offset_th_0[x] += offset
+
     for i in range(0,7):
         kit.servo[i].actuation_range = 180
         kit.servo[i].set_pulse_width_range(450, 2550)
@@ -27,8 +34,8 @@ def move(thigh, knee):
 
 if __name__ == "__main__":
     init_servos()
-    th1 = -45
-    th2 = 45
+    th1 = 0
+    th2 = 0
     angles_0 = [th1, th1, th1, th1]
     angles_1 = [th2, th2, th2, th2]
     move([0,0,0,0], [0,0,0,0])

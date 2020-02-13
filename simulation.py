@@ -1,7 +1,7 @@
 import math
 from tkinter import Tk, Canvas, Frame, BOTH
 from inverse_kinematics import inverse_kinematic
-from hardcode import get_positions_walk_1, get_positions_rise
+from hardcode import get_positions_walk_1, get_positions_rise, get_positions_fat
 from servotest import init_servos, move as write_to_servos
 
 def deg_to_rad(deg):
@@ -18,7 +18,7 @@ offset_y = 50
 vs_x = 40
 vs_y = 40
 
-animation_steps, steps_len = get_positions_rise()
+animation_steps, steps_len = get_positions_fat()
 
 
 class GUI():
@@ -29,15 +29,14 @@ class GUI():
         self.canvas = canvas
         self.animation_frame = 0
         self.increm = 0
-        self.resolution = 100
+        self.resolution = 50
+        self.period = 100
         self.vs_x = 0
         self.vs_y = 0
 
         self.init_ui()
 
     def init_ui(self):
-        # self.master.title("Lines")
-        # self.pack(fill=BOTH, expand=1)
 
         index = 0
 
@@ -50,7 +49,7 @@ class GUI():
                           deg_to_rad(0), j)
                 legs.append(leg)
                 index += 1
-
+                
         self.canvas.pack(fill=BOTH, expand=1)
         # self.canvas.create_line(55, 85, 155, 85, 105, 180, 55, 85)
 
@@ -117,7 +116,7 @@ class GUI():
         else:
             self.redraw(False, draw_trajectory)
 
-        return int(500 / self.resolution)
+        return int(self.period / self.resolution)
 
 
 class Leg:

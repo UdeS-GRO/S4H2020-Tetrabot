@@ -1,14 +1,17 @@
 import math
 from tkinter import Tk, Canvas, Frame, BOTH
 from inverse_kinematics import inverse_kinematic
-from hardcode import get_positions_walk_1, get_positions_rise, get_positions_fat
-from servotest import init_servos, move as write_to_servos
+from positions import set_positions
+from servo import init_servos, move as write_to_servos
+
 
 def deg_to_rad(deg):
     return (deg * math.pi) / 180
 
+
 def rad_to_deg(rad):
     return (rad * 180) / math.pi
+
 
 legs = []
 leg_length = 100
@@ -18,7 +21,7 @@ offset_y = 50
 vs_x = 40
 vs_y = 40
 
-animation_steps, steps_len = get_positions_fat()
+animation_steps, steps_len = set_positions()
 
 
 class GUI():
@@ -49,7 +52,7 @@ class GUI():
                           deg_to_rad(0), j)
                 legs.append(leg)
                 index += 1
-                
+
         self.canvas.pack(fill=BOTH, expand=1)
         # self.canvas.create_line(55, 85, 155, 85, 105, 180, 55, 85)
 
@@ -91,19 +94,21 @@ class GUI():
             step = animation_steps[i]
             positions = step[self.animation_frame]
             positions_to_go = step[(self.animation_frame + 1) % steps_len]
-            pos0 = positions[0] + self.increm * ((positions_to_go[0] - positions[0]) / self.resolution)
-            pos1 = positions[1] + self.increm * ((positions_to_go[1] - positions[1]) / self.resolution)
-            angle0, angle1 = inverse_kinematic(pos0, pos1, leg_length, tibia_length)
+            pos0 = positions[0] + self.increm * \
+                ((positions_to_go[0] - positions[0]) / self.resolution)
+            pos1 = positions[1] + self.increm * \
+                ((positions_to_go[1] - positions[1]) / self.resolution)
+            angle0, angle1 = inverse_kinematic(
+                pos0, pos1, leg_length, tibia_length)
             legs[i].set_angles(angle0, angle1)
 
-            
             # print(rad_to_deg(angle0)+90)
             angles_thigh.append(rad_to_deg(angle0)+90)
             angles_knee.append(rad_to_deg(angle1))
 
         write_to_servos(angles_thigh, angles_knee)
 
-            # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
+        # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
 
         self.increm += 1
         if self.increm > self.resolution:
@@ -148,11 +153,13 @@ class Leg:
 
         canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color,
                            tags="delete")  # Line thigh
-        canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags="delete")  # Line tibia
+        canvas.create_line(posx1, posy1, posx2, posy2, width=self.width,
+                           fill=self.color, tags="delete")  # Line tibia
         canvas.create_line(posx1 - 1, posy1 - 1, posx1 + 2, posy1 + 2, width=2, fill='black',
                            tags="delete")  # Point thigh
         if draw_trajectory:
-            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black')  # Point tibia
+            canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2,
+                               posy2 + 2, width=2, fill='black')  # Point tibia
         else:
             canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black',
                                tags="delete")  # Point tibia

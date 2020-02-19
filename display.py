@@ -1,8 +1,10 @@
 import math
 from tkinter import Tk, Canvas, Frame, BOTH
 from inverse_kinematics import inverse_kinematic
-from positions import set_positions
-from servo import init_servos, move as write_to_servos
+from positions import get_positions_template
+
+
+# from servo import init_servos, move as write_to_servos
 
 
 def deg_to_rad(deg):
@@ -21,27 +23,21 @@ offset_y = 50
 vs_x = 40
 vs_y = 40
 
-animation_steps, steps_len = set_positions()
 
-
-class GUI():
+class AnimationFrame:
 
     def __init__(self, fenetre, canvas):
-        init_servos()
+        # init_servos()
         self.root = fenetre
         self.canvas = canvas
         self.animation_frame = 0
-        self.increm = 0
-        self.resolution = 50
-        self.period = 100
+
         self.vs_x = 0
         self.vs_y = 0
 
         self.init_ui()
 
     def init_ui(self):
-
-        index = 0
 
         index = 0
 
@@ -54,13 +50,11 @@ class GUI():
                 index += 1
 
         self.canvas.pack(fill=BOTH, expand=1)
-        # self.canvas.create_line(55, 85, 155, 85, 105, 180, 55, 85)
 
-    def redraw(self, delete=False, draw_trajectory=True):
+    def redraw(self, delete_all=False, draw_trajectory=True):
         self.canvas.delete("delete")
-        if delete:
+        if delete_all:
             self.canvas.delete("all")
-        # self.pack(fill=BOTH, expand=1)
 
         for leg in legs:
             leg.show(self.canvas, draw_trajectory)
@@ -69,7 +63,7 @@ class GUI():
         for i in range(2):
             for j in range(2):
                 leg = legs[index]
-                leg.posx0 = offset_x + 200 * i - self.vs_x * j
+                leg.posx0 = offset_x + 200 * (1-i) - self.vs_x * j
                 leg.posy0 = offset_y + self.vs_y * j
                 index += 1
 
@@ -80,7 +74,7 @@ class GUI():
                                 legs[0].posx0, legs[0].posy0)
         self.canvas.pack(fill=BOTH, expand=1, padx=15)
 
-    def animate_walk(self, draw_trajectory, draw_3d):
+    def display_step(self, step, draw_trajectory, draw_3d):
         if draw_3d:
             self.vs_x = 40
             self.vs_y = 40
@@ -88,40 +82,11 @@ class GUI():
             self.vs_x = 0
             self.vs_y = 0
 
-        angles_thigh = []
-        angles_knee = []
-        for i in range(len(animation_steps)):
-            step = animation_steps[i]
-            positions = step[self.animation_frame]
-            positions_to_go = step[(self.animation_frame + 1) % steps_len]
-            pos0 = positions[0] + self.increm * \
-                ((positions_to_go[0] - positions[0]) / self.resolution)
-            pos1 = positions[1] + self.increm * \
-                ((positions_to_go[1] - positions[1]) / self.resolution)
-            angle0, angle1 = inverse_kinematic(
-                pos0, pos1, leg_length, tibia_length)
+        for i in range(len(legs)):
+            angle0, angle1 = inverse_kinematic(step[i][0], step[i][1], leg_length, tibia_length)
             legs[i].set_angles(angle0, angle1)
 
-            # print(rad_to_deg(angle0)+90)
-            angles_thigh.append(rad_to_deg(angle0)+90)
-            angles_knee.append(rad_to_deg(angle1))
-
-        write_to_servos(angles_thigh, angles_knee)
-
-        # legs[i].set_angles(deg_to_rad(angles[0]), deg_to_rad(angles[1]))
-
-        self.increm += 1
-        if self.increm > self.resolution:
-            self.increm = 0
-            self.animation_frame += 1
-
-        if self.animation_frame >= steps_len:
-            self.animation_frame = 0
-            self.redraw(True, draw_trajectory)
-        else:
-            self.redraw(False, draw_trajectory)
-
-        return int(self.period / self.resolution)
+        self.redraw(False, draw_trajectory)
 
 
 class Leg:

@@ -1,6 +1,6 @@
 from gui import Gui
-# from servo import move as write_to_servos
-from positions import get_positions_from_walk_sequence, steps_smoother
+from servo import move as write_to_servos
+from positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions
 
 
 # Class to control parameters of the walk sequence and simulation
@@ -14,7 +14,9 @@ class Controler:
         self.delay = int(self.period / self.resolution)
 
         # sets the steps to the desired walk sequence and the resolution
-        self.steps = steps_smoother(get_positions_from_walk_sequence(), self.resolution)
+        steps_positions = steps_smoother(get_positions_from_walk_sequence(), self.resolution)
+        self.steps = get_angles_from_positions(steps_positions)
+
         # Inits the GUI for the animation view
         self.gui = Gui()
 
@@ -25,6 +27,8 @@ class Controler:
         if run:
             step = self.steps[self.step_index]
             self.gui.animate_step(step)
+            write_to_servos(step)
+
             self.step_index += 1
 
             if self.step_index >= len(self.steps):

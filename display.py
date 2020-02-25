@@ -66,9 +66,8 @@ class AnimationCanvas:
             self.offset_3d_x = 0
             self.offset_3d_y = 0
 
-        for i in range(len(legs)):
-            angle0, angle1 = inverse_kinematic(step[i][0], step[i][1], leg_length, tibia_length)
-            legs[i].set_angles(angle0, angle1)
+        for i, leg_angles in enumerate(step):
+            legs[i].set_angles(leg_angles[0], leg_angles[1])
 
         self.redraw(False, draw_trajectory)
 

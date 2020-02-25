@@ -1,14 +1,23 @@
 from adafruit_servokit import ServoKit
-import time
 
 kit = ServoKit(channels=16)
 
 off_haut_gauche = [70, 127]
 off_haut_droite = [115, 40]
 off_bas_gauche = [90, 140]
-off_haut_gauche = [93, 15]
+off_bas_droite = [93, 15]
 
-offset = [off_haut_gauche, off_haut_droite, off_bas_gauche, off_haut_gauche]
+offset = [off_haut_gauche, off_haut_droite, off_bas_gauche, off_bas_droite]
+
+
+def format_step_for_servo(step):
+    formatted_step = []
+    for leg_angles in step:
+        angle0 = leg_angles[0] + 90
+        angle1 = leg_angles[1]
+        formatted_step.append([angle0, angle1])
+
+    return formatted_step
 
 
 def init_servos():
@@ -17,7 +26,8 @@ def init_servos():
         kit.servo[i].set_pulse_width_range(450, 2550)
 
 
-def move(position):
+def move(step):
+    position = format_step_for_servo(step)
     # haut gauche
     kit.servo[0].angle = offset[0][0] + .9 * position[0][0]
     kit.servo[1].angle = offset[0][1] - .9 * position[0][1]
@@ -34,8 +44,6 @@ def move(position):
 
 if __name__ == "__main__":
     init_servos()
-    move([[0, 0], [0, 0], [0, 0], [0, 0]])
-    time.sleep(2)
     move([[0, 0], [0, 0], [0, 0], [0, 0]])
 
     # offset_th_0 = [90,70,115,93]

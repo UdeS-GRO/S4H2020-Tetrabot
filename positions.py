@@ -7,8 +7,36 @@ def get_positions_from_walk_sequence():
      """
 
     delta_steps = []
-    delta_steps.append([[0, -100], [0, -100], [0, -100], [0, -100]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 40]])
+    yinit_back = -140
+    yinit_front = -140
+    xstep = 60
+
+    #penche avant
+    delta_steps.append([[0, yinit_front], [0, yinit_front], [0, yinit_back], [0, yinit_back]])
+  
+    # Walk it like i talk it #  Front wheelie -| pattes arrieres -| pattes avant
+    #  Front wheelie
+    delta_steps.append([[0, 20], [0, 20], [0, -20], [0, -20]])
+    #  Avance la patte arriere gauche 
+    delta_steps.append([[0, 0], [0, 0], [0, 35], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, -35], [0, 0]])
+    #  Avance la patte arriere droite 
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 35]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [40, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -35]])
+    #  cancel Front wheelie
+    delta_steps.append([[0, -17], [0, -17], [0, 17], [0, 17]])
+    #  Avance la patte avant gauche 
+    delta_steps.append([[0, 35], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[40, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, -35], [0, 0], [0, 0], [0, 0]])
+    #  Avance la patte avant droite 
+    delta_steps.append([[0, 0], [0, 35], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [40, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, -35], [0, 0], [0, 0]])
+    #  Pull-in Marois
+    delta_steps.append([[-40, 0], [-40, 0], [-40, 0], [-40, 0]])
 
     return get_positions_from_delta_positions(delta_steps)
 
@@ -66,7 +94,7 @@ def get_angles_from_positions(steps):
     for step in steps:
         angle_step = []
         for leg in step:
-            angle0, angle1 = inverse_kinematic(leg[0], leg[1], 103, 75)
+            angle0, angle1 = inverse_kinematic(leg[0], leg[1], 70, 100)
             angle_step.append([angle0, angle1])
         angle_steps.append(angle_step)
 

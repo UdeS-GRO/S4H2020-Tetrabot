@@ -30,7 +30,7 @@ class AnimationCanvas:
 
         for i in range(2):
             for j in range(2):
-                leg = Leg(offset_x + 200 * i - self.vs_x * j, offset_y + self.vs_y * j, leg_length, 0, tibia_length, 0,
+                leg = Leg(offset_x + 200 * i - self.offset_3d_x * j, offset_y + self.offset_3d_y * j, leg_length, 0, tibia_length, 0,
                           j)
                 legs.append(leg)
                 index += 1
@@ -50,8 +50,8 @@ class AnimationCanvas:
         for i in range(2):
             for j in range(2):
                 leg = legs[index]
-                leg.posx0 = offset_x + 200 * (1 - i) - self.vs_x * j
-                leg.posy0 = offset_y + self.vs_y * j
+                leg.posx0 = offset_x + 200 * (1 - i) - self.offset_3d_x * j
+                leg.posy0 = offset_y + self.offset_3d_y * j
                 index += 1
 
         self.canvas.create_line(0, offset_y + leg_length + tibia_length / 2 + off_y, 1000,

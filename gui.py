@@ -1,11 +1,10 @@
 from tkinter import *
-from display import AnimationFrame
+from display import AnimationCanvas
 
 
 class Gui:
 
     def __init__(self):
-
         self.root = Tk()
 
         label = Label(self.root, text="TETRABOT PROJECT", font="Helvetica 20")
@@ -18,7 +17,7 @@ class Gui:
         self.var_running = IntVar()
 
         canvas1 = Canvas(self.root, width=window_width, height=window_height, bg='gray')
-        self.animation_frame = AnimationFrame(self.root, canvas1)
+        self.animation_frame = AnimationCanvas(self.root, canvas1)
 
         bouton1 = Button(self.root, text='Start').pack(side=LEFT, padx=30, pady=10)
         bouton2 = Button(self.root, text='Stop').pack(side=LEFT, padx=30, pady=10)

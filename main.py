@@ -1,9 +1,11 @@
-from display import AnimationFrame
 from gui import Gui
 # from servo import move as write_to_servos
-from positions import get_positions_template, smooth_steps
+from positions import get_positions_from_walk_sequence, steps_smoother
 
 
+# Class to control parameters of the walk sequence and simulation
+# period = the period of the simulation loop
+# resolution = the resolution for the walk animation
 class Controler:
     def __init__(self):
         self.step_index = 0
@@ -11,16 +13,18 @@ class Controler:
         self.period = 1000
         self.delay = int(self.period / self.resolution)
 
-        self.steps = smooth_steps(get_positions_template(), self.resolution)
+        # sets the steps to the desired walk sequence and the resolution
+        self.steps = steps_smoother(get_positions_from_walk_sequence(), self.resolution)
+        # Inits the GUI for the animation view
         self.gui = Gui()
 
+    # Main loop for the animations and walk sequence of the robot
     def main_loop(self):
+        # Checks if the GUI is opened and running (for the simulation)
         run = self.gui.is_running()
         if run:
             step = self.steps[self.step_index]
             self.gui.animate_step(step)
-            # write_to_servos(step)
-
             self.step_index += 1
 
             if self.step_index >= len(self.steps):
@@ -35,6 +39,7 @@ class Controler:
         self.gui.root.after(self.delay, self.main_loop)
 
 
+# Runs the main_loop of the object "controler". (starts the GUI, starts the main_loop)
 if __name__ == "__main__":
     controler = Controler()
     controler.main_loop()

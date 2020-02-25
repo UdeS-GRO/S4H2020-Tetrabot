@@ -1,11 +1,15 @@
-def get_positions_template():
+# get positions from the walk sequence
+def get_positions_from_walk_sequence():
     delta_steps = []
     delta_steps.append([[0, -100], [0, -100], [0, -100], [0, -100]])
     delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 40]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -10]])
 
+    return get_positions_from_delta_positions(delta_steps)
+
+
+# get the delta-positions (mouvement for each joint to perform)
+def get_positions_from_delta_positions(delta_steps):
     steps = []
-
     for i, step in enumerate(delta_steps):
         if i == 0:
             steps.append(delta_steps[i])
@@ -17,7 +21,8 @@ def get_positions_template():
     return steps
 
 
-def smooth_steps(steps, resolution):
+# Augments resolution of the steps to have a smoother walking sequence for each joint
+def steps_smoother(steps, resolution):
     smoothed_steps = []
     for i in range(len(steps)):
         step = steps[i]
@@ -34,7 +39,3 @@ def smooth_steps(steps, resolution):
             smoothed_steps.append(smoothed_step)
 
     return smoothed_steps
-
-
-if __name__ == "__main__":
-    print(get_positions_template())

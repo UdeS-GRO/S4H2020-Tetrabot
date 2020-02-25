@@ -11,7 +11,7 @@ class Controler:
         init_servos()
         self.step_index = 0
         self.resolution = 5
-        self.period = 1000
+        self.period = 500
         self.delay = int(self.period / self.resolution)
 
         # sets the steps to the desired walk sequence and the resolution

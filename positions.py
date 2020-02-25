@@ -13,58 +13,30 @@ def get_positions_from_walk_sequence():
 
     #penche avant
     delta_steps.append([[0, yinit_front], [0, yinit_front], [0, yinit_back], [0, yinit_back]])
-
-    #step arriere droit
-    # delta_steps.append([[0, 0], [0, 0], [0, 35], [0, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [0, -35], [0, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 35]])
-    # delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -35]])
-
-    # delta_steps.append([[0, 35], [0, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[40, 0], [0, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[0, -35], [0, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[0, -25], [0, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[0, 0], [40, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[0, 0], [0, -35], [0, 0], [0, 0]])
-
-    # delta_steps.append([[0, -10], [0, -10], [0, 20], [0, 20]])
-
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 40]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [xstep, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -30]])
-
-    # # reset a penche avant
-    # delta_steps.append([[0, -20], [0, 0], [0, 20], [0, 10]])
-
-    # step arriere gauche
-    # delta_steps.append([[0, 0], [0, 20], [0, -20], [0, -20]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 40], [0, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [xstep, 0], [0, 0]])
-    # delta_steps.append([[0, 0], [0, 0], [0, -30], [0, 0]])
-
-    # delta_steps.append([[0, 0], [0, -20], [0, 10], [0, 20]])
-
-    # pause 
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
-
-    # delta_steps.append([[0, -20], [0, 0], [0, -20], [0, -20]])
-    # delta_steps.append([[0, 0], [60, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[0, 0], [0, -20], [0, 0], [0, 0]])
-    # delta_steps.append([[0, 20], [0, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[60, 0], [0, 0], [0, 0], [0, 0]])
-    # delta_steps.append([[0, -20], [0, 0], [0, 0], [0, 0]])
+  
+    # Walk it like i talk it #  Front wheelie -| pattes arrieres -| pattes avant
+    #  Front wheelie
+    delta_steps.append([[0, 20], [0, 20], [0, -20], [0, -20]])
+    #  Avance la patte arriere gauche 
+    delta_steps.append([[0, 0], [0, 0], [0, 35], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, -35], [0, 0]])
+    #  Avance la patte arriere droite 
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 35]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [40, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -35]])
+    #  cancel Front wheelie
+    delta_steps.append([[0, -17], [0, -17], [0, 17], [0, 17]])
+    #  Avance la patte avant gauche 
+    delta_steps.append([[0, 35], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[40, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, -35], [0, 0], [0, 0], [0, 0]])
+    #  Avance la patte avant droite 
+    delta_steps.append([[0, 0], [0, 35], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [40, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, -35], [0, 0], [0, 0]])
+    #  Pull-in Marois
+    delta_steps.append([[-40, 0], [-40, 0], [-40, 0], [-40, 0]])
 
     return get_positions_from_delta_positions(delta_steps)
 

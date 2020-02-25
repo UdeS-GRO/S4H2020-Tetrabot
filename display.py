@@ -14,10 +14,14 @@ offset_y = 50
 class AnimationCanvas:
 
     def __init__(self, root, canvas):
+        """
+         @param canvas: window for animation visualization
+         @param offset_3d_x and offset_3d_y : offset for 3D visualization
+         """
         self.root = root
         self.canvas = canvas
-        self.vs_x = 0
-        self.vs_y = 0
+        self.offset_3d_x = 0
+        self.offset_3d_y = 0
         self.init_ui()
 
     def init_ui(self):
@@ -59,6 +63,11 @@ class AnimationCanvas:
 
     # Displays the steps with the trajectory and the step of each joints (with the option of drawing in 3d)
     def display_step(self, step, draw_trajectory, draw_3d):
+        """
+         @param step: steps array
+         @param draw_trajectory: the mouvement to display on the canvas
+         @param draw_3d: boolean option for 3D visualization
+         """
         if draw_3d:
             self.offset_3d_x = 40
             self.offset_3d_y = 40
@@ -76,6 +85,11 @@ class AnimationCanvas:
 class Leg:
 
     def __init__(self, x, y, length1, angle1, length2, angle2, j):
+        """
+         @param posx0 and posy0 : initial positions of X and Y
+         @param length1 and length2 : Physical lengths of the joints (J1,J2) of the robot
+         @param angle1 and angle2 : Angles of each joints (J1,J2) of the robot
+         """
         self.posx0 = x
         self.posy0 = y
         self.length1 = length1
@@ -96,6 +110,10 @@ class Leg:
 
     # displays the legs on the canvas with the draw_trajectory
     def show(self, canvas, draw_trajectory):
+        """
+         @param canvas: window for animation visualization
+         @param draw_trajectory: the mouvement to display on the canvas
+         """
         posx1 = self.posx0 + self.length1 * math.cos(self.angle1)
         posy1 = self.posy0 - self.length1 * math.sin(self.angle1)
 
@@ -115,6 +133,6 @@ class Leg:
             canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2,
                                posy2 + 2, width=2, fill='black')
         else:
-            # second Point of the tibia for the trajectory display
+            # first Point of the tibia if there is no trajectory display
             canvas.create_line(posx2 - 1, posy2 - 1, posx2 + 2, posy2 + 2, width=2, fill='black',
-                               tags="delete")  # Point tibia
+                               tags="delete")

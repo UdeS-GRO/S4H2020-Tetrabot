@@ -3,8 +3,15 @@ from display import AnimationCanvas
 
 
 class Gui:
-
+    """
+    Class for the Graphics user interface, where the simulation is displayed along with visualization options.
+    """
     def __init__(self):
+        """
+         @param label: label of the window
+         @param window_width and window_height : Visualization window size
+         @param Buttons : Multiple buttons that the user can set for different visualization (3D, Start, stop)
+         """
         self.root = Tk()
 
         label = Label(self.root, text="TETRABOT PROJECT", font="Helvetica 20")

@@ -21,6 +21,9 @@ def format_step_for_servo(step):
 
 
 def init_servos():
+    """
+    Init the range of servos for the corrected pulse (in ms)
+     """
     for i in range(0, 7):
         kit.servo[i].actuation_range = 180
         kit.servo[i].set_pulse_width_range(450, 2550)
@@ -28,6 +31,9 @@ def init_servos():
 
 def move(step):
     position = format_step_for_servo(step)
+    """
+     @param position: position array for each joint
+     """
     # haut gauche
     kit.servo[0].angle = offset[0][0] + .9 * position[0][0]
     kit.servo[1].angle = offset[0][1] - .9 * position[0][1]

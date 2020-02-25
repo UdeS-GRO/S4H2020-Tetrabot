@@ -1,11 +1,15 @@
 from adafruit_servokit import ServoKit
+from math import pi
+
+def rad_to_deg(rad):
+    return rad*180/pi
 
 kit = ServoKit(channels=16)
 
-off_haut_gauche = [70, 127]
-off_haut_droite = [115, 40]
-off_bas_gauche = [90, 140]
-off_bas_droite = [93, 15]
+off_haut_gauche = [88, 155]
+off_haut_droite = [94, 35]
+off_bas_gauche = [89, 148]
+off_bas_droite = [97, 8]
 
 offset = [off_haut_gauche, off_haut_droite, off_bas_gauche, off_bas_droite]
 
@@ -13,8 +17,8 @@ offset = [off_haut_gauche, off_haut_droite, off_bas_gauche, off_bas_droite]
 def format_step_for_servo(step):
     formatted_step = []
     for leg_angles in step:
-        angle0 = leg_angles[0] + 90
-        angle1 = leg_angles[1]
+        angle0 = rad_to_deg(leg_angles[0]) + 90
+        angle1 = rad_to_deg(leg_angles[1])
         formatted_step.append([angle0, angle1])
 
     return formatted_step
@@ -50,7 +54,9 @@ def move(step):
 
 if __name__ == "__main__":
     init_servos()
-    move([[0, 0], [0, 0], [0, 0], [0, 0]])
+    thet = -3*pi/4
+    thet2 = pi/2
+    move([[thet, thet2], [thet, thet2], [thet, thet2], [thet, thet2]])
 
     # offset_th_0 = [90,70,115,93]
     # offset_th_1 = [140,127,40,15]

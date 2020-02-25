@@ -7,8 +7,64 @@ def get_positions_from_walk_sequence():
      """
 
     delta_steps = []
-    delta_steps.append([[0, -100], [0, -100], [0, -100], [0, -100]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 40]])
+    yinit_back = -140
+    yinit_front = -140
+    xstep = 60
+
+    #penche avant
+    delta_steps.append([[0, yinit_front], [0, yinit_front], [0, yinit_back], [0, yinit_back]])
+
+    #step arriere droit
+    # delta_steps.append([[0, 0], [0, 0], [0, 35], [0, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [0, -35], [0, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 35]])
+    # delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -35]])
+
+    # delta_steps.append([[0, 35], [0, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[40, 0], [0, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[0, -35], [0, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[0, -25], [0, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[0, 0], [40, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[0, 0], [0, -35], [0, 0], [0, 0]])
+
+    # delta_steps.append([[0, -10], [0, -10], [0, 20], [0, 20]])
+
+    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 40]])
+    # delta_steps.append([[0, 0], [0, 0], [0, 0], [xstep, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -30]])
+
+    # # reset a penche avant
+    # delta_steps.append([[0, -20], [0, 0], [0, 20], [0, 10]])
+
+    # step arriere gauche
+    # delta_steps.append([[0, 0], [0, 20], [0, -20], [0, -20]])
+    # delta_steps.append([[0, 0], [0, 0], [0, 40], [0, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [xstep, 0], [0, 0]])
+    # delta_steps.append([[0, 0], [0, 0], [0, -30], [0, 0]])
+
+    # delta_steps.append([[0, 0], [0, -20], [0, 10], [0, 20]])
+
+    # pause 
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 0]])
+
+    # delta_steps.append([[0, -20], [0, 0], [0, -20], [0, -20]])
+    # delta_steps.append([[0, 0], [60, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[0, 0], [0, -20], [0, 0], [0, 0]])
+    # delta_steps.append([[0, 20], [0, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[60, 0], [0, 0], [0, 0], [0, 0]])
+    # delta_steps.append([[0, -20], [0, 0], [0, 0], [0, 0]])
 
     return get_positions_from_delta_positions(delta_steps)
 
@@ -66,7 +122,7 @@ def get_angles_from_positions(steps):
     for step in steps:
         angle_step = []
         for leg in step:
-            angle0, angle1 = inverse_kinematic(leg[0], leg[1], 103, 75)
+            angle0, angle1 = inverse_kinematic(leg[0], leg[1], 70, 100)
             angle_step.append([angle0, angle1])
         angle_steps.append(angle_step)
 

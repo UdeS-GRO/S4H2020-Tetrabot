@@ -1,5 +1,5 @@
 from gui import Gui
-from servo import move as write_to_servos
+from servo import init_servos, move as write_to_servos
 from positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions
 
 
@@ -8,6 +8,7 @@ from positions import get_positions_from_walk_sequence, steps_smoother, get_angl
 # resolution = the resolution for the walk animation
 class Controler:
     def __init__(self):
+        init_servos()
         self.step_index = 0
         self.resolution = 5
         self.period = 1000

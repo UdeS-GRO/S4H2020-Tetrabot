@@ -7,7 +7,18 @@ from positions import get_positions_from_walk_sequence, steps_smoother, get_angl
 # period = the period of the simulation loop
 # resolution = the resolution for the walk animation
 class Controler:
+    """
+     Class to control parameters of the walk sequence and simulation
+     period = the period of the simulation loop
+     resolution = the resolution for the walk animation
+     """
     def __init__(self):
+        """
+         @param step_index : the index of the current step in the simulation
+         @param resolution : the resolution of the simulation
+         @param period : the period of the resolution of the simulation
+         @param delay : the pause between each walking sequence
+         """
         init_servos()
         self.step_index = 0
         self.resolution = 5

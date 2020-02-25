@@ -1,11 +1,26 @@
-def get_positions_template():
+from inverse_kinematics import inverse_kinematic
+
+
+def get_positions_from_walk_sequence():
+    """
+     @return: array of delta positions of 2 joints for each of the 4 feet from walk sequence
+     """
+
     delta_steps = []
     delta_steps.append([[0, -100], [0, -100], [0, -100], [0, -100]])
     delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 40]])
-    # delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -10]])
+
+    return get_positions_from_delta_positions(delta_steps)
+
+
+# get the delta-positions (mouvement for each joint to perform)
+def get_positions_from_delta_positions(delta_steps):
+    """
+     @param delta_steps: array of delta positions of 2 joints for each of the 4 feet
+     @return: array of positions of 2 joints for each of the 4 feet
+     """
 
     steps = []
-
     for i, step in enumerate(delta_steps):
         if i == 0:
             steps.append(delta_steps[i])
@@ -17,7 +32,12 @@ def get_positions_template():
     return steps
 
 
-def smooth_steps(steps, resolution):
+# Augments resolution of the steps to have a smoother walking sequence for each joint
+def steps_smoother(steps, resolution):
+    """
+     @param delta_steps: array of delta positions of 2 joints for each of the 4 feet
+     @return: array of positions of 2 joints for each of the 4 feet
+     """
     smoothed_steps = []
     for i in range(len(steps)):
         step = steps[i]
@@ -36,5 +56,18 @@ def smooth_steps(steps, resolution):
     return smoothed_steps
 
 
-if __name__ == "__main__":
-    print(get_positions_template())
+def get_angles_from_positions(steps):
+    """
+     @param steps: array of positions of 2 joints for each of the 4 feet
+     @return: array of angles for 2 joints for each of the 4 feet
+     """
+
+    angle_steps = []
+    for step in steps:
+        angle_step = []
+        for leg in step:
+            angle0, angle1 = inverse_kinematic(leg[0], leg[1], 103, 75)
+            angle_step.append([angle0, angle1])
+        angle_steps.append(angle_step)
+
+    return angle_steps

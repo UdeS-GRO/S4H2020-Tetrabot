@@ -1,11 +1,17 @@
 from tkinter import *
-from display import AnimationFrame
+from display import AnimationCanvas
 
 
 class Gui:
-
+    """
+    Class for the Graphics user interface, where the simulation is displayed along with visualization options.
+    """
     def __init__(self):
-
+        """
+         @param label: label of the window
+         @param window_width and window_height : Visualization window size
+         @param Buttons : Multiple buttons that the user can set for different visualization (3D, Start, stop)
+         """
         self.root = Tk()
 
         label = Label(self.root, text="TETRABOT PROJECT", font="Helvetica 20")
@@ -18,7 +24,7 @@ class Gui:
         self.var_running = IntVar()
 
         canvas1 = Canvas(self.root, width=window_width, height=window_height, bg='gray')
-        self.animation_frame = AnimationFrame(self.root, canvas1)
+        self.animation_frame = AnimationCanvas(self.root, canvas1)
 
         bouton1 = Button(self.root, text='Start').pack(side=LEFT, padx=30, pady=10)
         bouton2 = Button(self.root, text='Stop').pack(side=LEFT, padx=30, pady=10)

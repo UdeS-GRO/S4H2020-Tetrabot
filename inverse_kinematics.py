@@ -1,8 +1,15 @@
 import math
 
 
-# Function to find the 2 angles q1,q2 for each joints of the robot
 def inverse_kinematic(x, y, a1, a2):
+    """
+    @param x: x position of end effector
+    @param y: y position of end effector
+    @param a1: length of member 1
+    @param a2: length of member 2
+
+    @return: angles of a 2 joint same plane robot arm
+    """
     # find q2 angle of the second joint
     num = x ** 2 + y ** 2 - a1 ** 2 - a2 ** 2
     denum = 2 * a1 * a2

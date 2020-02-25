@@ -2,6 +2,8 @@
 
 Tetrabot is a four-legged robot made out of wooden parts with 8 DOF (2 per leg) that draws inspiration from Boston Dynamics' Spot. The motors are controled with an Adafruit servo driver and both the walking cycle and the UI are coded in Python on a Raspberry PI 3.
 
+![ezgif com-optimize (1)](https://user-images.githubusercontent.com/43070865/75289747-f9056480-57ec-11ea-9d0a-09c0e0a104ec.gif)
+
 ## Getting Started
 
 Here, you'll find documentation on the CAD and the code used to create this robot as well as instructions to assemble it and to setup the coding environment.

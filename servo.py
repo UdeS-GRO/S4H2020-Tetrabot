@@ -17,7 +17,7 @@ offset = [off_haut_gauche, off_haut_droite, off_bas_gauche, off_bas_droite]
 def format_step_for_servo(step):
     formatted_step = []
     for leg_angles in step:
-        angle0 = rad_to_deg(leg_angles[0]) + 90
+        angle0 = rad_to_deg(leg_angles[0])
         angle1 = rad_to_deg(leg_angles[1])
         formatted_step.append([angle0, angle1])
 

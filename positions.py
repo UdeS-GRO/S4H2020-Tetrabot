@@ -94,7 +94,7 @@ def get_angles_from_positions(steps):
     for step in steps:
         angle_step = []
         for leg in step:
-            angle0, angle1 = inverse_kinematic(leg[0], leg[1], 70, 100)
+            angle0, angle1 = inverse_kinematic(leg[1], leg[0], 70, 100)
             angle_step.append([angle0, angle1])
         angle_steps.append(angle_step)
 

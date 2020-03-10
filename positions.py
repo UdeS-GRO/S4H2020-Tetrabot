@@ -7,8 +7,8 @@ def get_positions_from_walk_sequence():
      """
 
     delta_steps = []
-    yinit_back = -140
-    yinit_front = -140
+    yinit_back = 140
+    yinit_front = 140
     xstep = 60
 
     #penche avant
@@ -16,25 +16,25 @@ def get_positions_from_walk_sequence():
   
     # Walk it like i talk it #  Front wheelie -| pattes arrieres -| pattes avant
     #  Front wheelie
-    delta_steps.append([[0, 20], [0, 20], [0, -20], [0, -20]])
+    delta_steps.append([[0, 20], [0, 20], [0, 20], [0, 20]])
     #  Avance la patte arriere gauche 
-    delta_steps.append([[0, 0], [0, 0], [0, 35], [0, 0]])
-    delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
     delta_steps.append([[0, 0], [0, 0], [0, -35], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [40, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 35], [0, 0]])
     #  Avance la patte arriere droite 
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 35]])
-    delta_steps.append([[0, 0], [0, 0], [0, 0], [40, 0]])
     delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -35]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [40, 0]])
+    delta_steps.append([[0, 0], [0, 0], [0, 0], [0, 35]])
     #  cancel Front wheelie
-    delta_steps.append([[0, -17], [0, -17], [0, 17], [0, 17]])
+    delta_steps.append([[0, -20], [0, -20], [0, -20], [0, -20]])
     #  Avance la patte avant gauche 
-    delta_steps.append([[0, 35], [0, 0], [0, 0], [0, 0]])
-    delta_steps.append([[40, 0], [0, 0], [0, 0], [0, 0]])
     delta_steps.append([[0, -35], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[40, 0], [0, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 35], [0, 0], [0, 0], [0, 0]])
     #  Avance la patte avant droite 
-    delta_steps.append([[0, 0], [0, 35], [0, 0], [0, 0]])
-    delta_steps.append([[0, 0], [40, 0], [0, 0], [0, 0]])
     delta_steps.append([[0, 0], [0, -35], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [40, 0], [0, 0], [0, 0]])
+    delta_steps.append([[0, 0], [0, 35], [0, 0], [0, 0]])
     #  Pull-in Marois
     delta_steps.append([[-40, 0], [-40, 0], [-40, 0], [-40, 0]])
 

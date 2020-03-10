@@ -4,7 +4,7 @@ from inverse_kinematics import inverse_kinematic
 
 # Sets the robot's physical parameters (this can change with your CAD)
 legs = []
-thight_length = 100
+thigh_length = 100
 tibia_length = 100
 offset_x = 225
 offset_y = 100
@@ -29,7 +29,7 @@ class AnimationCanvas:
 
         for i in range(2):
             for j in range(2):
-                leg = Leg(offset_x + 200 * i - self.offset_3d_x * j, offset_y + self.offset_3d_y * j, thight_length, 0,
+                leg = Leg(offset_x + 200 * i - self.offset_3d_x * j, offset_y + self.offset_3d_y * j, thigh_length, 0,
                           tibia_length, 0,j)
                 legs.append(leg)
                 index += 1
@@ -47,11 +47,11 @@ class AnimationCanvas:
         for i, leg_angles in enumerate(step):
             legs[i].set_angles(leg_angles[0], leg_angles[1])
 
-        # Delete tags before the redraw (display trajectory or no)
+        # Delete tags before the redraw (display trajectory 'foot' or not 'foot')
         if draw_trajectory:
-            self.canvas.delete('body', 'shoulder', 'thight', 'tibia', 'knee', 'ground')
+            self.canvas.delete('body', 'shoulder', 'thigh', 'tibia', 'knee', 'ground')
         else:
-            self.canvas.delete('body', 'shoulder', 'thight', 'tibia', 'knee', 'foot', 'ground')
+            self.canvas.delete('body', 'shoulder', 'thigh', 'tibia', 'knee', 'foot', 'ground')
 
         # Shows the legs on the FrameCanvas
         for leg in legs:
@@ -66,8 +66,8 @@ class AnimationCanvas:
 
         # Ground
         off_y = 0
-        self.canvas.create_line(0, offset_y + thight_length + tibia_length / 2 + off_y, 10000,
-                                offset_y + thight_length + tibia_length / 2 + off_y, tags='ground')
+        self.canvas.create_line(0, offset_y + thigh_length + tibia_length / 2 + off_y, 10000,
+                                offset_y + thigh_length + tibia_length / 2 + off_y, tags='ground')
 
         # 2D <--> 3D
         if draw_3d:
@@ -123,7 +123,7 @@ class Leg:
         posy2 = posy1 - self.length2 * math.sin(self.angle1 + self.angle2)
 
         # Line of the thigh
-        canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color, tags='thight')
+        canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color, tags='thigh')
 
         # Line of the tibia
         canvas.create_line(posx1, posy1, posx2, posy2, width=self.width, fill=self.color, tags='tibia')

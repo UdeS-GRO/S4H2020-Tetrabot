@@ -19,18 +19,14 @@ class Gui:
         self.var_draw_trajectory = BooleanVar()
         self.var_running = BooleanVar(value=0)
 
-        print(self.var_running)
-
         window_width = 600
         window_height = 400
 
         def click_run():
             self.var_running.set(1)
-            print('Please run tetrabot!')
 
         def click_stop():
             self.var_running.set(0)
-            print('Please stop tetrabot!')
 
         Label(self.root, text='TETRABOT PROJECT', font='Helvetica 28').pack(padx=30, pady=10)
 

@@ -17,18 +17,16 @@ class Gui:
         self.root.title('GRO-S4-Project')
         self.var_3d = BooleanVar(value=1)
         self.var_draw_trajectory = BooleanVar()
-        self.var_running = BooleanVar()
+        self.var_running = BooleanVar(value=0)
 
         window_width = 600
         window_height = 400
 
         def click_run():
-            self.var_running = 1
-            print('Please run tetrabot!')
+            self.var_running.set(1)
 
         def click_stop():
-            self.var_running = 0
-            print('Please stop tetrabot!')
+            self.var_running.set(0)
 
         Label(self.root, text='TETRABOT PROJECT', font='Helvetica 28').pack(padx=30, pady=10)
 
@@ -43,7 +41,7 @@ class Gui:
         Checkbutton(self.root, text='3D visualisation', variable=self.var_3d).pack(side=RIGHT, padx=10, pady=10)
 
     def is_running(self):
-        return self.var_running
+        return self.var_running.get()
 
     def animate_step(self, step):
         self.animation_frame.display_step(step, self.var_draw_trajectory.get(), self.var_3d.get())

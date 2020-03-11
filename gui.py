@@ -18,6 +18,7 @@ class Gui:
         self.var_3d = BooleanVar(value=1)
         self.var_draw_trajectory = BooleanVar()
         self.var_running = BooleanVar(value=0)
+        self.var_stand = BooleanVar(value=0)
 
         window_width = 600
         window_height = 400
@@ -28,6 +29,9 @@ class Gui:
         def click_stop():
             self.var_running.set(0)
 
+        def click_stand():
+            self.var_stand.set(1)
+
         Label(self.root, text='TETRABOT PROJECT', font='Helvetica 28').pack(padx=30, pady=10)
 
         canvas1 = Canvas(self.root, width=window_width, height=window_height, bg='#C0C0C0')
@@ -35,6 +39,7 @@ class Gui:
 
         Button(self.root, text='Run', command=click_run).pack(side=LEFT, padx=10, pady=10)
         Button(self.root, text='Stop', command=click_stop).pack(side=LEFT, padx=10, pady=10)
+        Button(self.root, text='Stand Up', command=click_stand).pack(side=LEFT, padx=10, pady=10)
         Button(self.root, text='Close', command=self.root.quit).pack(side=RIGHT, padx=10, pady=10)
 
         Checkbutton(self.root, text='Draw trajectory', variable=self.var_draw_trajectory).pack(side=RIGHT, padx=10, pady=10)
@@ -42,6 +47,9 @@ class Gui:
 
     def is_running(self):
         return self.var_running.get()
+
+    def is_stand(self):
+        return self.var_stand.get()
 
     def animate_step(self, step):
         self.animation_frame.display_step(step, self.var_draw_trajectory.get(), self.var_3d.get())

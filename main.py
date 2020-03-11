@@ -21,7 +21,7 @@ class Controler:
          """
         init_servos()
         self.step_index = 0
-        self.resolution = 5
+        self.resolution = 10
         self.period = 500
         self.delay = int(self.period / self.resolution)
 
@@ -45,15 +45,8 @@ class Controler:
 
             if self.step_index >= len(self.steps):
                 self.step_index = 0
-                # TODO self.redraw(True, draw_trajectory)
-            else:
-                pass
-                # TODO self.redraw(False, draw_trajectory)
-        else:
-            self.step_index = 0
 
         self.gui.root.after(self.delay, self.main_loop)
-
 
 # Runs the main_loop of the object "controler". (starts the GUI, starts the main_loop)
 if __name__ == "__main__":

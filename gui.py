@@ -8,39 +8,42 @@ class Gui:
     """
     def __init__(self):
         """
-         @param label: label of the window
-         @param window_width and window_height : Visualization window size
-         @param Buttons : Multiple buttons that the user can set for different visualization (3D, Start, stop)
-         """
+        @param Label: label of the window
+        @param window_width and window_height : Visualization window size
+        @param Buttons : Multiple buttons that the user can set for different actions (Standing, Run, Stop)
+        @param Checkbuttons : Multiple checkbuttons that the user can set for different visualizations (3D, Draw_trajectory)
+        """
         self.root = Tk()
+        self.root.title('GRO-S4-Project')
+        self.var_3d = BooleanVar(value=1)
+        self.var_draw_trajectory = BooleanVar()
+        self.var_running = BooleanVar()
 
-        label = Label(self.root, text="TETRABOT PROJECT", font="Helvetica 20")
-        label.pack()
-        window_width = 800
+        window_width = 600
         window_height = 400
 
-        self.var_draw_trajectory = IntVar()
-        self.var_3d = IntVar(value=1)
-        self.var_running = IntVar()
+        def click_run():
+            self.var_running = 1
+            print('Please run tetrabot!')
 
-        canvas1 = Canvas(self.root, width=window_width, height=window_height, bg='gray')
+        def click_stop():
+            self.var_running = 0
+            print('Please stop tetrabot!')
+
+        Label(self.root, text='TETRABOT PROJECT', font='Helvetica 28').pack(padx=30, pady=10)
+
+        canvas1 = Canvas(self.root, width=window_width, height=window_height, bg='#C0C0C0')
         self.animation_frame = AnimationCanvas(self.root, canvas1)
 
-        bouton1 = Button(self.root, text='Start').pack(side=LEFT, padx=30, pady=10)
-        bouton2 = Button(self.root, text='Stop').pack(side=LEFT, padx=30, pady=10)
-        bouton3 = Button(self.root, text="Close", command=self.root.quit).pack(side=RIGHT, padx=30, pady=10)
-        bouton4 = Checkbutton(self.root, text="display trajectory", variable=self.var_draw_trajectory).pack(side=RIGHT,
-                                                                                                            padx=30,
-                                                                                                            pady=10)
-        bouton5 = Checkbutton(self.root, text="3D display", variable=self.var_3d).pack(side=RIGHT, padx=30, pady=10)
+        Button(self.root, text='Run', command=click_run).pack(side=LEFT, padx=10, pady=10)
+        Button(self.root, text='Stop', command=click_stop).pack(side=LEFT, padx=10, pady=10)
+        Button(self.root, text='Close', command=self.root.quit).pack(side=RIGHT, padx=10, pady=10)
+
+        Checkbutton(self.root, text='Draw trajectory', variable=self.var_draw_trajectory).pack(side=RIGHT, padx=10, pady=10)
+        Checkbutton(self.root, text='3D visualisation', variable=self.var_3d).pack(side=RIGHT, padx=10, pady=10)
 
     def is_running(self):
         return self.var_running
 
     def animate_step(self, step):
         self.animation_frame.display_step(step, self.var_draw_trajectory.get(), self.var_3d.get())
-
-
-if __name__ == "__main__":
-    gui = Gui()
-    gui.root.mainloop()

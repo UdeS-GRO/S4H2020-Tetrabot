@@ -14,11 +14,10 @@ def get_positions_from_walk_sequence():
     x_init = -xstep
     x_offset = 25
 
-    #initial positions
-    delta_steps.append([[x_init+20, yinit], [x_init+20, yinit], [x_init, yinit], [x_init, yinit]])
+    # initial positions
+    delta_steps.append([[x_init + 20, yinit], [x_init + 20, yinit], [x_init, yinit], [x_init, yinit]])
 
     for _ in range(10):
-
         #  Puts the back-left leg forward
         delta_steps.append([[0, 0], [0, 0], [0, y_up], [0, 0]])
         delta_steps.append([[0, 0], [0, 0], [xstep, 0], [0, 0]])
@@ -96,6 +95,7 @@ def get_angles_from_positions(steps):
     for step in steps:
         angle_step = []
         for leg in step:
+            # change vector base for the inverse_kinematic function to get angles at joints
             angle0, angle1 = inverse_kinematic(leg[1], leg[0], 70, 100)
             angle_step.append([angle0, angle1])
         angle_steps.append(angle_step)

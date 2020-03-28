@@ -12,6 +12,7 @@ class Controler:
      period = the period of the simulation loop
      resolution = the resolution for the walk animation
      """
+
     def __init__(self):
         """
          @param step_index : the index of the current step in the simulation

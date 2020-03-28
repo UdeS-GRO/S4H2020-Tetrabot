@@ -1,8 +1,7 @@
 # CAD's
 
 
-#DIRECTLY IN THIS FOLDER
-CAD's to use to build the first prototype.
+# DIRECTLY IN THIS FOLDER: CAD's of the first prototype.
 
 To cut in wood:
 
@@ -32,7 +31,7 @@ moteur.SLDPRT : Servo motor
 Tetrabot.SLDASM : The full assembly of the first prototype
 ```
 
-#IN New Tetrabot FOLDER
+# IN New Tetrabot FOLDER
 CAD's to use to build the final prototype
 
 To print in PLA:
@@ -45,7 +44,7 @@ New_Leg.SLDPRT : Full legs.
 New_thigh.SLDPRT : Side of the thigh.
 New_thigh_2.SLDPRT : Other side of the thigh.
 New_tibia.SLDPRT : Tibia of the leg.
-
+```
 
 
 To use as reference :

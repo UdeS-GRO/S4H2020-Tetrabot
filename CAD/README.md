@@ -1,7 +1,8 @@
 # CAD's
 
 
-# DIRECTLY IN THIS FOLDER: CAD's of the first prototype.
+# DIRECTLY IN THIS FOLDER
+CAD's of the first prototype.
 
 To cut in wood:
 
@@ -54,5 +55,4 @@ moteur.SLDPRT : Servo Motor
 jambe.SLDASM : Full thigh.
 New_Tetrabot.SLDASM : Full assembly of the robot.
 Raspberry Pi 3 Light Version.SLDPRT : Raspberry Pi.
-
 ```

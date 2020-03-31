@@ -35,7 +35,7 @@ class Controler:
     # Main loop for the animations and walk sequence of the robot
     def main_loop(self):
         # Checks if the GUI is opened and running (for the simulation)
-        stand_up = self.gui.is_stand()
+        stand_up = self.gui.is_standing()
         run = self.gui.is_running()
 
         if self.state == 0: # Wait command stand_up

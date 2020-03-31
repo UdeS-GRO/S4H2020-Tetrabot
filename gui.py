@@ -24,7 +24,8 @@ class Gui:
         window_height = 400
 
         def click_run():
-            self.var_running.set(1)
+            if self.var_stand.get():
+                self.var_running.set(1)
 
         def click_stop():
             self.var_running.set(0)
@@ -48,7 +49,7 @@ class Gui:
     def is_running(self):
         return self.var_running.get()
 
-    def is_stand(self):
+    def is_standing(self):
         return self.var_stand.get()
 
     def animate_step(self, step):

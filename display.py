@@ -55,7 +55,7 @@ class AnimationCanvas:
 
         # Shows the legs on the FrameCanvas
         for leg in legs:
-            leg.show(self.canvas, draw_trajectory)
+            leg.show(self.canvas)
         index = 0
         for i in range(2):
             for j in range(2):
@@ -66,7 +66,7 @@ class AnimationCanvas:
 
         # Ground
         off_y = 0
-        self.canvas.create_line(0, offset_y + thigh_length + tibia_length / 2 + off_y, 10000,
+        self.canvas.create_line(0, offset_y + thigh_length + tibia_length / 2 + off_y, 600,
                                 offset_y + thigh_length + tibia_length / 2 + off_y, tags='ground')
 
         # 2D <--> 3D
@@ -99,9 +99,9 @@ class Leg:
         self.length2 = length2
         self.angle2 = angle2
         if j == 1:
-            self.color = '#fb0'
+            self.color = 'purple'
         else:
-            self.color = 'green'
+            self.color = 'darkorchid'
 
         self.width = 5
 
@@ -111,7 +111,7 @@ class Leg:
         self.angle2 = angle2
 
     # displays the legs on the canvas with the draw_trajectory
-    def show(self, canvas, draw_trajectory):
+    def show(self, canvas):
         """
         @param canvas: window for animation visualization
         @param draw_trajectory: the mouvement to display on the canvas

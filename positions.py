@@ -101,3 +101,23 @@ def get_angles_from_positions(steps):
         angle_steps.append(angle_step)
 
     return angle_steps
+
+def wait_command():
+    """
+    @return: array of positions of 2 joints for each of the 4 feet from walk sequence
+    """
+    y = 50
+    delta_steps = []
+    delta_steps.append([[0, y], [0, y], [0, y], [0, y]])
+
+    return delta_steps
+
+def stand_up_move():
+    """
+    @return: array of positions of 2 joints for each of the 4 feet from walk sequence
+    """
+    y = 70
+    delta_steps = wait_command()
+    delta_steps.append([[0, y], [0, y], [0, y], [0, y]])
+
+    return delta_steps

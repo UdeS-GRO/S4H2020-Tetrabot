@@ -21,14 +21,14 @@ Machines and tools:
 Materials:
   - 1/8" thick wood planks
   - Wood glue
-  - Sand paper
+  - C7 : Sand paper
 Electronics:
-  - 1 Raspberry PI 3
-  - 8 Hitec HS-422 Servo Motor
-  - 1 Adafruit PCA9685 16-Channel Servo Driver
-  - 5 V - 3.2 A power supply
-  - 4 Long female to female electrical wires
-  - 2 Crocodile clips with wires
+  - C1 : 1 Raspberry PI 3
+  - C2 : 8 Hitec HS-422 Servo Motor
+  - C3 : 1 Adafruit PCA9685 16-Channel Servo Driver
+  - C4 : 5 V - 3.2 A power supply
+  - C5 : 4 Long female to female electrical wires
+  - C6 : 2 Crocodile clips with wires
 Others:
   - Nuts and bolts of various sizes
 ```
@@ -36,19 +36,19 @@ Others:
 The laser cutter should be used to cut the following parts out of the wood plank:
 
 ```
-  - 1 top (optionnal)
-  - 1 bottom
-  - 2 sides (left/right)
-  - 2 other sides (front/back)
-  - 4 thighs
-  - 4 tibias
+  - A1 : 1 top (optionnal) (CAD->Top)
+  - A2 : 1 bottom (CAD->Body)
+  - A3 : 2 sides (left/right) (CAD->Mur)
+  - A4 : 2 other sides (front/back) (CAD->face)
+  - A5 : 4 thighs (CAD->thight)
+  - A6 : 4 tibias (CAD->tibia)
 ```
 
 And the 3D printer should be used to print the following parts with PLA plastic.
 
 ```
-  - 8 custom servo horns
-  - 4 feet
+  - B1 : 8 custom servo horns (CAD->Adapteur_servo_metal)
+  - B2 : 4 feet (CAD->New Tetrabot->foot)
 ```
 
 ### Assembling
@@ -58,7 +58,7 @@ A step by step guide to build the robot. Make sure you have all of the parts men
 1. Glue the body
 
 ```
-  1.1. Apply some glue to the indents of the bottom and the sides.
+  1.1. Apply some glue to the indents of the bottom (A2) and the sides (A3 and A4).
   1.2. Assemble the parts and use pliers to keep the parts together.
   1.3. Let the assembly dry.
 ```
@@ -66,28 +66,28 @@ A step by step guide to build the robot. Make sure you have all of the parts men
 2. Assemble the legs
 
 ```
-  2.2. Screw the servo horns to the thighs.
-  2.3. Screw the motors to the thighs.
-  2.4. Screw the servo horns to the tibias.
-  2.5. Cut squares of sand paper and glue them under the feet.
-  2.6. Screw the feet to the tibias.
+  2.2. Screw the servo horns (B1) to the thighs (A5).
+  2.3. Screw the motors (C2) to the thighs (A5).
+  2.4. Screw the servo horns (B1) to the tibias (A6).
+  2.5. Cut squares of sand paper (C7) and glue them under the feet.
+  2.6. Screw the feet (B2) to the tibias (A6).
   2.7. Fix the tibias' servo horns to the thighs' motors.
 ```
 
 3. Assemble the robot
 
 ```
-  3.1. Once the base is dry, screw the remaining servos to the sides from the inside of the base.
+  3.1. Once the base is dry, screw the remaining servos (C2) to the sides from the inside of the base.
   3.2. Fix the thighs' servo horns to the base's motors.
 ```
 
 4. Setup the electronics
 
 ```
-  4.1. Weld the pins to the Adafruit driver.
+  4.1. Weld the pins to the Adafruit driver (C3).
   4.2. Connect every servo wire to the driver like shown.
-  4.3. Connect the driver to the PI like shown.
-  4.4. Connect the PI to a power source. and
+  4.3. Connect the driver (C3) to the PI using wires (C4) like shown.
+  4.4. Connect the PI (C1) to a power source
   4.5. Plug in a keyboard and a mouse in the USB ports and a monitor in the HDMI port.
   4.6. Use wires to connect the Adafruit servo driver to a 5 V power supply.
 ```

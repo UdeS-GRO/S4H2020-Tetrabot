@@ -116,11 +116,11 @@ class Leg:
         @param canvas: window for animation visualization
         @param draw_trajectory: the mouvement to display on the canvas
         """
-        posx1 = self.posx0 + self.length1 * math.cos(self.angle1)
-        posy1 = self.posy0 - self.length1 * math.sin(self.angle1)
+        posx1 = self.posx0 + self.length1 * math.sin(self.angle1)
+        posy1 = self.posy0 + self.length1 * math.cos(self.angle1)
 
-        posx2 = posx1 + self.length2 * math.cos(self.angle1 + self.angle2)
-        posy2 = posy1 - self.length2 * math.sin(self.angle1 + self.angle2)
+        posx2 = posx1 + self.length2 * math.sin(self.angle1 + self.angle2)
+        posy2 = posy1 + self.length2 * math.cos(self.angle1 + self.angle2)
 
         # Line of the thigh
         canvas.create_line(self.posx0, self.posy0, posx1, posy1, width=self.width, fill=self.color, tags='thigh')

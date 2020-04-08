@@ -12,6 +12,7 @@ class Controler:
      period = the period of the simulation loop
      resolution = the resolution for the walk animation
      """
+
     def __init__(self):
         """
         @param step_index : the index of the current step in the simulation
@@ -21,7 +22,7 @@ class Controler:
         """
         init_servos()
         self.step_index = 0
-        self.resolution = 10
+        self.resolution = 5
         self.period = 500
         self.delay = int(self.period / self.resolution)
         self.state = 0
@@ -66,6 +67,7 @@ class Controler:
         self.gui.animate_step(step)
         write_to_servos(step)
         self.gui.root.after(self.delay, self.main_loop)
+
 
 # Runs the main_loop of the object "controler". (starts the GUI, starts the main_loop)
 if __name__ == "__main__":

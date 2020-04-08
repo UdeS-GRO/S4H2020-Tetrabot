@@ -53,7 +53,7 @@ class Controler:
 
         elif self.state == 2: # Run and wait futur command
             if run:
-                if self.step_index >= len(self.steps):
+                if self.step_index + 1 >= len(self.steps):
                     self.step_index = 0
                 else:
                     self.step_index += 1

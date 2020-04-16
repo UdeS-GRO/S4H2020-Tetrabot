@@ -1,6 +1,5 @@
 import math
 from tkinter import *
-from inverse_kinematics import inverse_kinematic
 
 # Sets the robot's physical parameters (this can change with your CAD)
 legs = []

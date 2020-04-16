@@ -1,18 +1,18 @@
 # Tetrabot
 
-Tetrabot is a four-legged robot made out of wooden parts with 8 DOF (2 per leg) that draws inspiration from Boston Dynamics' Spot. The motors are controled with an Adafruit servo driver and both the walking cycle and the UI are coded in Python on a Raspberry PI 3.
+Tetrabot is a four-legged robot made out of wooden parts with 8 DOF (2 per leg) that draws inspiration from Boston Dynamics' Spot. The motors are controlled with an Adafruit servo driver and both the walking cycle and the UI are coded in Python on a Raspberry PI 3.
 
 ![ezgif com-optimize (1)](https://user-images.githubusercontent.com/43070865/75289747-f9056480-57ec-11ea-9d0a-09c0e0a104ec.gif)
 
 ## Getting Started
 
-Here, you'll find documentation on the CAD and the code used to create this robot as well as instructions to assemble it and to setup the coding environment.
-The Tetrabot Mecanical Team (TMT) designed two prototypes. The first prototype has been fully tested and is made primirarly of wood. The second prototype is made primarly of 3D printed PLA. Each part can be printed but it was not fully assembled and tested with the electronics and the software.
+Here, you'll find documentation on the CAD and the code used to create this robot as well as instructions to assemble it and to set up the coding environment.
+The Tetrabot Mechanical Team (TMT) designed two prototypes. The first prototype has been fully tested and is made primarily of wood. The second prototype is made primarily of 3D printed PLA. Each part can be printed but it was not fully assembled and tested with the electronics and the software.
 
 
 ### FIRST Prototype Prerequisites (hardware)
 
-Before setting up the coding environment, you should make sure you have the following in order to build the robot:
+Before setting up the coding environment, you should make sure you have the following to build the robot:
 
 ```
 Machines and tools:
@@ -23,14 +23,14 @@ Machines and tools:
 Materials:
   - 1/8" thick wood planks
   - Wood glue
-  - C7 : Sand paper
+  - C7: Sandpaper
 Electronics:
-  - C1 : 1 Raspberry PI 3
-  - C2 : 8 Hitec HS-422 Servo Motor
-  - C3 : 1 Adafruit PCA9685 16-Channel Servo Driver
-  - C4 : 5 V - 3.2 A power supply
-  - C5 : 4 Long female to female electrical wires
-  - C6 : 2 Crocodile clips with wires
+  - C1: 1 Raspberry PI 3
+  - C2: 8 Hitec HS-422 Servo Motor
+  - C3: 1 Adafruit PCA9685 16-Channel Servo Driver
+  - C4: 5 V - 3.2 A power supply
+  - C5: 4 Long female to female electrical wires
+  - C6: 2 Crocodile clips with wires
 Others:
   - Nuts and bolts of various sizes
 ```
@@ -53,9 +53,9 @@ And the 3D printer should be used to print the following parts with PLA plastic.
   - B2 : 4 feet (CAD->New Tetrabot->foot)
 ```
 
-### Assembling
+### FIRST Prototype Assembling
 
-A step by step guide to build the robot. Make sure you have all of the parts mentionned above before beginning the assembly.
+A step by step guide to building the robot. Make sure you have all of the parts mentioned above before beginning the assembly.
 
 1. Glue the body
 
@@ -71,7 +71,7 @@ A step by step guide to build the robot. Make sure you have all of the parts men
   2.2. Screw the servo horns (B1) to the thighs (A5).
   2.3. Screw the motors (C2) to the thighs (A5).
   2.4. Screw the servo horns (B1) to the tibias (A6).
-  2.5. Cut squares of sand paper (C7) and glue them under the feet (B2).
+  2.5. Cut squares of sandpaper (C7) and glue them under the feet (B2).
   2.6. Screw the feet (B2) to the tibias (A6).
   2.7. Fix the tibias' servo horns to the thighs' motors.
 ```
@@ -97,12 +97,12 @@ A step by step guide to build the robot. Make sure you have all of the parts men
 5. After the software setup
 
 ```
-  5.1. Unplug the monitor, screen and mouse.
+  5.1. Unplug the monitor, screen, and mouse.
   5.2. Install (Don't glue!) the top of the robot. (If you have one)
 ```
 ### SECOND Prototype Prerequisites (hardware)
 
-Every CAD that you need to make the final prototype is in the New Tetrabot folder. You will nned these:
+Every CAD that you need to make the final prototype is in the New Tetrabot folder. You will need these:
 
 ```
 Machines and tools:
@@ -110,14 +110,14 @@ Machines and tools:
   - Pliers
   - Cutters
 Materials:
-  - A7 : Sand paper
+  - A7: Sandpaper
 Electronics:
-  - A1 : 1 Raspberry PI 3
-  - A2 : 8 Hitec HS-422 Servo Motor
-  - A3 : 1 Adafruit PCA9685 16-Channel Servo Driver
-  - A4 : 5 V - 3.2 A power supply
-  - A5 : 4 Long female to female electrical wires
-  - A6 : 2 Crocodile clips with wires
+  - A1: 1 Raspberry PI 3
+  - A2: 8 Hitec HS-422 Servo Motor
+  - A3: 1 Adafruit PCA9685 16-Channel Servo Driver
+  - A4: 5 V - 3.2 A power supply
+  - A5: 4 Long female to female electrical wires
+  - A6: 2 Crocodile clips with wires
 Others:
   - Nuts and bolts of various sizes
 ```
@@ -132,18 +132,17 @@ The 3D printer should be used to print the following parts with PLA plastic. We 
   - B5 : 4 tibia (CAD->New Tetrabot->New_tibia)
   - B6 : 4 adapter (CAD->New Tetrabot->New_adapter)
 ```
-The tibias and adapter should be printed with support
-The base and feet can be printed without support
+The tibia and adapter should be printed with support with the part going in the motors facing up. The base, thigh and feet can be printed without support.
 
-### Assembling
+### SECOND Prototype Assembling
 
-A step by step guide to build the robot. Make sure you have all of the parts mentionned above before beginning the assembly.
+A step by step guide to building the robot. Make sure you have all of the parts mentioned above before beginning the assembly.
 
 1. Assemble the legs
 
 ```
   1.1. Assemble and screw the two thighs (B3-B4) together with the adapter (B6) in the middle.
-  1.2. Cut squares of sand paper (A7) and glue them under the feet (B2).
+  1.2. Cut squares of sandpaper (A7) and glue them under the feet (B2).
   1.3. Screw the feet (B2) to the tibias (B5).
   1.4. Insert the tibias (B5) between the thighs.
   1.5. Screw the motors (A2) to the thighs (B4) while making sure that the motors are inserted in the tibias (B5).
@@ -171,7 +170,7 @@ A step by step guide to build the robot. Make sure you have all of the parts men
 
 ### Prerequisites (software)
 
-The tutorials that follow will state what you need to install their respective softwares.
+The tutorials that follow will state what you need to install their respective software.
 
 ### Installing
 
@@ -187,7 +186,7 @@ Connect the servos to the drive:
 Follow step 4 of the assembling tutorial above.
 ```
 
-Once everything is setup, run `python3 servo.py` to make Tetrabot stand up.
+Once everything is set up, run `python3 servo.py` to make Tetrabot stand up.
 
 You will need to change the `offset` values in `servo.py` until its legs are straight and perpendicular to the ground.
 

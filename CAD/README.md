@@ -35,6 +35,7 @@ Tetrabot.SLDASM : The full assembly of the first prototype
 # IN New Tetrabot FOLDER
 CAD's to use to build the final prototype
 
+The tibia and adapter should be printed with support with the part going in the motors facing up. The base, thigh and feet can be printed without support.
 To print in PLA:
 
 ```

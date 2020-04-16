@@ -1,35 +1,25 @@
 import unittest
-# from main import Controler
+import time
+from main import Controler
 from gui import Gui
 from display import AnimationCanvas, Leg
 from inverse_kinematics import inverse_kinematic
 from positions import get_positions_from_walk_sequence, get_positions_from_delta_positions, steps_smoother, get_angles_from_positions
 
-test_data = [[5,5,45,45],[55,55,15,15],[0,0,0,0]]
-test_answers = [1,1,1]
 
 class TestGui(unittest.TestCase):
 
+    def test_running(self):
+        self.gui = Gui()
+        self.assertFalse(self.gui.var_running.get(),'Is running')
+
+    def test_standing(self):
+        self.gui = Gui()
+        self.assertFalse(self.gui.var_standing.get(),'Is standing')
+
     def test_3d(self):
         self.gui = Gui()
-        self.assertTrue(self.gui.var_3d)
-
-    def test_running_command(self):
-        self.gui = Gui()
-        self.assertFalse(self.gui.is_running(), "Is running")
-
-
-# class TestMain(unittest.TestCase)
-#     def test_ML(self):
-#         self.assertEqual(Controler.main_loop(), 1, "Wrong answer on test #" + i)
-
-# class TestGui(unittest.TestCase):
-#     def test_IS(self):
-#         self.assertEqual(Gui.is_running(), 1,
-#                          "Wrong answer on test #" + i)
-#     def test_AS(self):
-#         self.assertEqual(Gui.animate_step(), 1,
-#                          "Wrong answer on test #" + i)
+        self.assertTrue(self.gui.var_3d.get(), '3d not active at start-up')
 
 # class TestDisplay(unittest.TestCase):
 #     def test_IU(self):
@@ -51,6 +41,19 @@ class TestIK(unittest.TestCase):
         q1, q2 = inverse_kinematic(self.test_1[0], self.test_1[1], self.test_1[2], self.test_1[3])
         self.assertAlmostEqual(q1, self.test_1[4], 3, "Wrong q1")
         self.assertAlmostEqual(q2, self.test_1[5], 3, "Wrong q2")
+
+class TestMain(unittest.TestCase):
+
+    def test_not_moving(self):
+        self.controler = Controler()
+        self.assertFalse(self.controler.gui.var_standing.get(),'The robot can move without command')
+        self.assertFalse(self.controler.gui.var_running.get(),'The robot can move without command')
+
+    def test_counter_init(self):
+        self.controler = Controler()
+        time.sleep(2)
+        self.assertFalse(self.controler.step_index,'The step counter increments')
+
 
     def test_IK2(self):
         self.test_2 = [30, 0, 70, 100, 0.000, 3.142]

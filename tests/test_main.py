@@ -6,32 +6,21 @@ from inverse_kinematics import inverse_kinematic
 from positions import get_positions_from_walk_sequence, get_positions_from_delta_positions, steps_smoother, get_angles_from_positions
 # from servo import rad_to_deg, format_step_for_servo, init_servos, move
 
-test_data = [[5,5,45,45],[55,55,15,15],[0,0,0,0]]
-test_answers = [1,1,1]
+
+# class TestMain(unittest.TestCase)
+#     def test_ML(self):
+#         self.assertEqual(Controler.main_loop(), 1, "Wrong answer on test #" + i)
 
 class TestGui(unittest.TestCase):
 
     def test_3d(self):
         self.gui = Gui()
-        self.assertTrue(self.gui.var_3d)
+        self.assertTrue(self.gui.var_3d, '3d not active at start-up')
 
     def test_running_command(self):
         self.gui = Gui()
-        self.assertFalse(self.gui.is_running())
+        self.assertFalse(self.gui.is_running(),'Is running')
 
-
-# class TestMain(unittest.TestCase)
-#     def test_ML(self):
-#         self.assertEqual(Controler.main_loop(), 1, "Wrong answer on test #" + i)
-#
-# class TestGui(unittest.TestCase):
-#     def test_IS(self):
-#         self.assertEqual(Gui.is_running(), 1,
-#                          "Wrong answer on test #" + i)
-#     def test_AS(self):
-#         self.assertEqual(Gui.animate_step(), 1,
-#                          "Wrong answer on test #" + i)
-#
 # class TestDisplay(unittest.TestCase):
 #     def test_IU(self):
 #         self.assertEqual(AnimationCanvas.init_ui(), 1,
@@ -89,6 +78,7 @@ class TestGui(unittest.TestCase):
 #     def test_Move(self):
 #         self.assertEqual(move(), 1,
 #                         "Wrong answer on test #" + i)
+
 
 if __name__ == '__main__':
     unittest.main()

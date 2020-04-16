@@ -1,5 +1,6 @@
 import unittest
-# from main import Controler
+import time
+from main import Controler
 from gui import Gui
 from display import AnimationCanvas, Leg
 from inverse_kinematics import inverse_kinematic
@@ -7,19 +8,19 @@ from positions import get_positions_from_walk_sequence, get_positions_from_delta
 # from servo import rad_to_deg, format_step_for_servo, init_servos, move
 
 
-# class TestMain(unittest.TestCase)
-#     def test_ML(self):
-#         self.assertEqual(Controler.main_loop(), 1, "Wrong answer on test #" + i)
-
 class TestGui(unittest.TestCase):
+
+    def test_running(self):
+        self.gui = Gui()
+        self.assertFalse(self.gui.var_running.get(),'Is running')
+
+    def test_standing(self):
+        self.gui = Gui()
+        self.assertFalse(self.gui.var_standing.get(),'Is standing')
 
     def test_3d(self):
         self.gui = Gui()
-        self.assertTrue(self.gui.var_3d, '3d not active at start-up')
-
-    def test_running_command(self):
-        self.gui = Gui()
-        self.assertFalse(self.gui.is_running(),'Is running')
+        self.assertTrue(self.gui.var_3d.get(), '3d not active at start-up')
 
 # class TestDisplay(unittest.TestCase):
 #     def test_IU(self):
@@ -78,6 +79,18 @@ class TestGui(unittest.TestCase):
 #     def test_Move(self):
 #         self.assertEqual(move(), 1,
 #                         "Wrong answer on test #" + i)
+
+class TestMain(unittest.TestCase):
+
+    def test_not_moving(self):
+        self.controler = Controler()
+        self.assertFalse(self.controler.gui.var_standing.get(),'The robot can move without command')
+        self.assertFalse(self.controler.gui.var_running.get(),'The robot can move without command')
+
+    def test_counter_init(self):
+        self.controler = Controler()
+        time.sleep(2)
+        self.assertFalse(self.controler.step_index,'The step counter increments')
 
 
 if __name__ == '__main__':

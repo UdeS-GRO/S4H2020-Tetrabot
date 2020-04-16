@@ -8,17 +8,15 @@ from positions import get_positions_from_walk_sequence, steps_smoother, get_angl
 # resolution = the resolution for the walk animation
 class Controler:
     """
-     Class to control parameters of the walk sequence and simulation
-     period = the period of the simulation loop
-     resolution = the resolution for the walk animation
-     """
+    Class to control parameters of the walk sequence and simulation
+    """
 
     def __init__(self):
         """
-        @param step_index : the index of the current step in the simulation
-        @param resolution : the resolution of the simulation
-        @param period : the period of the resolution of the simulation
-        @param delay : the pause between each walking sequence
+        :param step_index: the index of the current step in the simulation
+        :param resolution: the resolution of the simulation
+        :param period: the period of the resolution of the simulation
+        :param delay: the pause between each walking sequence
         """
         init_servos()
         self.step_index = 0
@@ -28,7 +26,8 @@ class Controler:
         self.state = 0
 
         # sets the steps to the desired walk sequence and the resolution
-        self.steps = get_angles_from_positions(steps_smoother(stand_up_move(), self.resolution))
+        self.steps = get_angles_from_positions(
+            steps_smoother(stand_up_move(), self.resolution))
 
         # Inits the GUI for the animation view
         self.gui = Gui()
@@ -39,29 +38,29 @@ class Controler:
         stand_up = self.gui.is_standing()
         run = self.gui.is_running()
 
-        if self.state == 0: # Wait command stand_up
+        if self.state == 0:  # Wait command stand_up
             if stand_up:
                 if self.step_index >= len(self.steps)/2:
                     self.state = 1
                 else:
                     self.step_index += 1
 
-        elif self.state == 1: # Stand_up and wait command run
+        elif self.state == 1:  # Stand_up and wait command run
             if run:
                 self.step_index = 0
-                self.steps = get_angles_from_positions(steps_smoother(get_positions_from_walk_sequence(), self.resolution))
+                self.steps = get_angles_from_positions(steps_smoother(
+                    get_positions_from_walk_sequence(), self.resolution))
                 self.state = 2
 
-        elif self.state == 2: # Run and wait futur command
+        elif self.state == 2:  # Run and wait futur command
             if run:
                 if self.step_index + 1 >= len(self.steps):
                     self.step_index = 0
                 else:
                     self.step_index += 1
 
-        elif self.state == 3: # Futur state
+        elif self.state == 3:  # Futur state
             pass
-
 
         step = self.steps[self.step_index]
         self.gui.animate_step(step)

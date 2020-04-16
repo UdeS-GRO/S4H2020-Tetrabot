@@ -85,6 +85,8 @@ A step by step guide to building the robot. Make sure you have all of the parts 
 
 4. Setup the electronics
 
+    You should follow the [adafruit tutorial](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all) to know how to setup the electronics.
+
 ```
   4.1. Weld the pins to the Adafruit driver (C3).
   4.2. Connect every servo wire to the driver like shown.
@@ -157,14 +159,16 @@ A step by step guide to building the robot. Make sure you have all of the parts 
 
 3. Setup the electronics
 
+    You should follow the [adafruit tutorial](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all) to know how to setup the electronics.
+
 ```
-  4.1. Weld the pins to the Adafruit driver (A3).
-  4.2. Connect every servo wire to the driver like shown.
-  4.3. Connect the driver (A3) to the PI using wires (A4) like shown.
-  4.4. Screw the driver (A3) to the base (B1).
-  4.5. Connect the PI (A1) to a power source.
-  4.6. Plug in a keyboard and a mouse in the USB ports and a monitor in the HDMI port.
-  4.7. Use wires to connect the Adafruit servo driver to a 5 V power supply.
+  3.1. Weld the pins to the Adafruit driver (A3).
+  3.2. Connect every servo wire to the driver like shown.
+  3.3. Connect the driver (A3) to the PI using wires (A4) like shown.
+  3.4. Screw the driver (A3) to the base (B1).
+  3.5. Connect the PI (A1) to a power source.
+  3.6. Plug in a keyboard and a mouse in the USB ports and a monitor in the HDMI port.
+  3.7. Use wires to connect the Adafruit servo driver to a 5 V power supply.
 ```
 
 
@@ -177,13 +181,13 @@ The tutorials that follow will state what you need to install their respective s
 Follow this guide to install
 [CircuitPython](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux) on your Pi.
 
-Follow this guide to setup your RaspberryPi with the
-[Adafruit 16 Channel Servo Driver](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux).
+Follow [this guide](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux) to setup your RaspberryPi with the
+[Adafruit 16 Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all).
 
 Connect the servos to the drive:
 
 ```
-Follow step 4 of the assembling tutorial above.
+Follow step 3 of the assembling tutorial above.
 ```
 
 Once everything is set up, run `python3 servo.py` to make Tetrabot stand up.

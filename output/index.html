@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to Tetrabot’s documentation! &#8212; Tetrabot  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Tetrabot  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-main">
+<span id="welcome-to-tetrabot-s-documentation"></span><h1>Welcome to Tetrabot’s documentation!<a class="headerlink" href="#module-main" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="main.Controler">
+<em class="property">class </em><code class="sig-prename descclassname">main.</code><code class="sig-name descname">Controler</code><a class="headerlink" href="#main.Controler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to control parameters of the walk sequence and simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>step_index</strong> – the index of the current step in the simulation</p></li>
+<li><p><strong>resolution</strong> – the resolution of the simulation</p></li>
+<li><p><strong>period</strong> – the period of the resolution of the simulation</p></li>
+<li><p><strong>delay</strong> – the pause between each walking sequence</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-gui"></span><dl class="py class">
+<dt id="gui.Gui">
+<em class="property">class </em><code class="sig-prename descclassname">gui.</code><code class="sig-name descname">Gui</code><a class="headerlink" href="#gui.Gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for the Graphics user interface, where the simulation is displayed along with visualization options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Label</strong> – label of the window</p></li>
+<li><p><strong>and window_height</strong> (<em>window_width</em>) – Visualization window size</p></li>
+<li><p><strong>Buttons</strong> – Multiple buttons that the user can set for different actions (Standing, Run, Stop)</p></li>
+<li><p><strong>Checkbuttons</strong> – Multiple checkbuttons that the user can set for different visualizations (3D, Draw_trajectory)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-display"></span><span class="target" id="module-inverse_kinematics"></span><dl class="py function">
+<dt id="inverse_kinematics.inverse_kinematic">
+<code class="sig-prename descclassname">inverse_kinematics.</code><code class="sig-name descname">inverse_kinematic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">a1</span></em>, <em class="sig-param"><span class="n">a2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#inverse_kinematics.inverse_kinematic" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – x position of end effector</p></li>
+<li><p><strong>y</strong> – y position of end effector</p></li>
+<li><p><strong>a1</strong> – length of member 1</p></li>
+<li><p><strong>a2</strong> – length of member 2</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>angles of a 2 joint same plane robot arm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-positions"></span><dl class="py function">
+<dt id="positions.get_angles_from_positions">
+<code class="sig-prename descclassname">positions.</code><code class="sig-name descname">get_angles_from_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#positions.get_angles_from_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>steps</strong> – array of positions of 2 joints for each of the 4 feet</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array of angles for 2 joints for each of the 4 feet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="positions.get_positions_from_delta_positions">
+<code class="sig-prename descclassname">positions.</code><code class="sig-name descname">get_positions_from_delta_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta_steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#positions.get_positions_from_delta_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delta_steps</strong> – array of delta positions of 2 joints for each of the 4 feet</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array of positions of 2 joints for each of the 4 feet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="positions.get_positions_from_walk_sequence">
+<code class="sig-prename descclassname">positions.</code><code class="sig-name descname">get_positions_from_walk_sequence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#positions.get_positions_from_walk_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>array of delta positions of step 2 joints for each of the 4 feet from walk sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="positions.stand_up_move">
+<code class="sig-prename descclassname">positions.</code><code class="sig-name descname">stand_up_move</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#positions.stand_up_move" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>array of positions of 2 joints for each of the 4 feet from walk sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="positions.steps_smoother">
+<code class="sig-prename descclassname">positions.</code><code class="sig-name descname">steps_smoother</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">resolution</span></em><span class="sig-paren">)</span><a class="headerlink" href="#positions.steps_smoother" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delta_steps</strong> – array of delta positions of 2 joints for each of the 4 feet</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array of positions of 2 joints for each of the 4 feet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="positions.wait_command">
+<code class="sig-prename descclassname">positions.</code><code class="sig-name descname">wait_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#positions.wait_command" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>array of positions of 2 joints for each of the 4 feet from walk sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-servo"></span><dl class="py function">
+<dt id="servo.init_servos">
+<code class="sig-prename descclassname">servo.</code><code class="sig-name descname">init_servos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#servo.init_servos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init the range of servos for the corrected pulse (in ms)</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Tetrabot  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Alexandre Lafleur.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.1.
+    </div>
+  </body>
+</html>

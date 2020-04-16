@@ -6,7 +6,7 @@ setup(
     packages=[''],
     url='https://github.com/alexandrelafleur/Tetrabot',
     license='',
-    author='Alexis ',
+    author='Tetrabot ',
     author_email='',
     description='Quadriped Bot'
 )

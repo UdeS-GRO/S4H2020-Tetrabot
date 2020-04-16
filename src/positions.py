@@ -3,7 +3,7 @@ from inverse_kinematics import inverse_kinematic
 
 def get_positions_from_walk_sequence():
     """
-    @return: array of delta positions ofxstep 2 joints for each of the 4 feet from walk sequence
+    :return: array of delta positions of step 2 joints for each of the 4 feet from walk sequence
     """
 
     delta_steps = []
@@ -15,7 +15,8 @@ def get_positions_from_walk_sequence():
     x_offset = 25
 
     # initial positions
-    delta_steps.append([[x_init + 20, yinit], [x_init + 20, yinit], [x_init, yinit], [x_init, yinit]])
+    delta_steps.append(
+        [[x_init + 20, yinit], [x_init + 20, yinit], [x_init, yinit], [x_init, yinit]])
 
     for _ in range(10):
         #  Puts the back-left leg forward
@@ -27,7 +28,8 @@ def get_positions_from_walk_sequence():
         delta_steps.append([[0, 0], [0, 0], [0, 0], [xstep, 0]])
         delta_steps.append([[0, 0], [0, 0], [0, 0], [0, -y_up]])
         # Offset the body
-        delta_steps.append([[x_offset, 0], [x_offset, 0], [x_offset, 0], [x_offset, 0]])
+        delta_steps.append([[x_offset, 0], [x_offset, 0],
+                            [x_offset, 0], [x_offset, 0]])
         #  Puts the front-left leg forward
         delta_steps.append([[0, y_up], [0, 0], [0, 0], [0, 0]])
         delta_steps.append([[xstep, 0], [0, 0], [0, 0], [0, 0]])
@@ -36,8 +38,10 @@ def get_positions_from_walk_sequence():
         delta_steps.append([[0, 0], [0, y_up], [0, 0], [0, 0]])
         delta_steps.append([[0, 0], [xstep, 0], [0, 0], [0, 0]])
         delta_steps.append([[0, 0], [0, -y_up], [0, 0], [0, 0]])
-        delta_steps.append([[-x_offset, 0], [-x_offset, 0], [-x_offset, 0], [-x_offset, 0]])
-        delta_steps.append([[-xstep, 0], [-xstep, 0], [-xstep, 0], [-xstep, 0]])
+        delta_steps.append([[-x_offset, 0], [-x_offset, 0],
+                            [-x_offset, 0], [-x_offset, 0]])
+        delta_steps.append(
+            [[-xstep, 0], [-xstep, 0], [-xstep, 0], [-xstep, 0]])
 
     return get_positions_from_delta_positions(delta_steps)
 
@@ -45,8 +49,8 @@ def get_positions_from_walk_sequence():
 # get the delta-positions (mouvement for each joint to perform)
 def get_positions_from_delta_positions(delta_steps):
     """
-     @param delta_steps: array of delta positions of 2 joints for each of the 4 feet
-     @return: array of positions of 2 joints for each of the 4 feet
+     :param delta_steps: array of delta positions of 2 joints for each of the 4 feet
+     :return: array of positions of 2 joints for each of the 4 feet
      """
 
     steps = []
@@ -55,8 +59,10 @@ def get_positions_from_delta_positions(delta_steps):
             steps.append(delta_steps[i])
         else:
             for j, delta in enumerate(step):
-                delta_steps[i][j][0] = delta_steps[i][j][0] + delta_steps[i - 1][j][0]
-                delta_steps[i][j][1] = delta_steps[i][j][1] + delta_steps[i - 1][j][1]
+                delta_steps[i][j][0] = delta_steps[i][j][0] + \
+                    delta_steps[i - 1][j][0]
+                delta_steps[i][j][1] = delta_steps[i][j][1] + \
+                    delta_steps[i - 1][j][1]
             steps.append(step)
     return steps
 
@@ -64,8 +70,8 @@ def get_positions_from_delta_positions(delta_steps):
 # Augments resolution of the steps to have a smoother walking sequence for each joint
 def steps_smoother(steps, resolution):
     """
-     @param delta_steps: array of delta positions of 2 joints for each of the 4 feet
-     @return: array of positions of 2 joints for each of the 4 feet
+     :param delta_steps: array of delta positions of 2 joints for each of the 4 feet
+     :return: array of positions of 2 joints for each of the 4 feet
      """
     smoothed_steps = []
     for i in range(len(steps)):
@@ -77,8 +83,10 @@ def steps_smoother(steps, resolution):
             for k in range(4):
                 positions = step[k]
                 next_positions = next_step[k]
-                pos0 = positions[0] + j * ((next_positions[0] - positions[0]) / resolution)
-                pos1 = positions[1] + j * ((next_positions[1] - positions[1]) / resolution)
+                pos0 = positions[0] + j * \
+                    ((next_positions[0] - positions[0]) / resolution)
+                pos1 = positions[1] + j * \
+                    ((next_positions[1] - positions[1]) / resolution)
                 smoothed_step.append([pos0, pos1])
             smoothed_steps.append(smoothed_step)
 
@@ -87,8 +95,8 @@ def steps_smoother(steps, resolution):
 
 def get_angles_from_positions(steps):
     """
-     @param steps: array of positions of 2 joints for each of the 4 feet
-     @return: array of angles for 2 joints for each of the 4 feet
+     :param steps: array of positions of 2 joints for each of the 4 feet
+     :return: array of angles for 2 joints for each of the 4 feet
      """
 
     angle_steps = []
@@ -102,9 +110,10 @@ def get_angles_from_positions(steps):
 
     return angle_steps
 
+
 def wait_command():
     """
-    @return: array of positions of 2 joints for each of the 4 feet from walk sequence
+    :return: array of positions of 2 joints for each of the 4 feet from walk sequence
     """
     y = 50
     delta_steps = []
@@ -112,9 +121,10 @@ def wait_command():
 
     return delta_steps
 
+
 def stand_up_move():
     """
-    @return: array of positions of 2 joints for each of the 4 feet from walk sequence
+    :return: array of positions of 2 joints for each of the 4 feet from walk sequence
     """
     y = 70
     delta_steps = wait_command()

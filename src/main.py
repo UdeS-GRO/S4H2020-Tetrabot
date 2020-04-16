@@ -1,6 +1,6 @@
-from gui import Gui
-from servo import init_servos, move as write_to_servos
-from positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
+from .gui import Gui
+from .servo import init_servos, move as write_to_servos
+from .positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
 
 
 # Class to control parameters of the walk sequence and simulation

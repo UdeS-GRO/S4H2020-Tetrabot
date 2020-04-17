@@ -1,23 +1,24 @@
 import unittest
-import time
 from main import Controler
 from gui import Gui
 from display import AnimationCanvas, Leg
+from tkinter import *
 from inverse_kinematics import inverse_kinematic
-from positions import get_positions_from_walk_sequence, get_positions_from_delta_positions, steps_smoother, get_angles_from_positions
+from positions import get_positions_from_delta_positions, steps_smoother, get_angles_from_positions
 
 
 class TestGui(unittest.TestCase):
 
-    def test_stand_command(self):
+    def setUp(self) -> None:
         self.gui = Gui()
+
+    def test_stand_command(self):
         self.assertFalse(self.gui.var_standing.get(), 'Is standing')
         self.gui.stand()
         self.assertTrue(self.gui.var_standing.get(), 'Is not standing')
 
 
     def test_run_command(self):
-        self.gui = Gui()
         self.assertFalse(self.gui.var_running.get(),'Is running at starting')
         self.gui.run()
         self.assertFalse(self.gui.var_running.get(),'Is not standing before running')

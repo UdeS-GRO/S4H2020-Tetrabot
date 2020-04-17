@@ -19,7 +19,7 @@ class Controler:
         @param period : the period of the resolution of the simulation
         @param delay : the pause between each walking sequence
         """
-        # init_servos()
+
         self.step_index = 0
         self.resolution = 5
         self.period = 500

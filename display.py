@@ -38,7 +38,7 @@ class AnimationCanvas:
         self.canvas.pack(fill=BOTH, expand=1)
 
     # Displays the steps with the trajectory and the step of each joints (with the option of drawing in 3d)
-    def display_step(self, step, draw_trajectory=True, draw_3d=True):
+    def display_step(self, step, draw_trajectory, draw_3d):
         """
         @param step: steps array
         @param draw_trajectory: boolean option for trajectory visualization
@@ -90,11 +90,11 @@ class Leg:
     Class for each joint animation of the robot
     """
 
-    def __init__(self, x, y, length1, angle1, length2, angle2, j):
+    def __init__(self, x, y, length1, angle1, length2, angle2, color):
         """
         @param posx0 and posy0 : initial positions of X and Y
         @param length1 and length2 : Physical lengths of the joints (J1,J2) of the robot
-        @param angle1 and angle2 : Angles of each joints (J1,J2) of the robot
+        @param angle1 and angle2 : Angles of each joints (color1,color2) of the robot
         """
         self.posx0 = x
         self.posy0 = y
@@ -102,7 +102,7 @@ class Leg:
         self.angle1 = angle1
         self.length2 = length2
         self.angle2 = angle2
-        if j == 1:
+        if color == 1:
             self.color = 'purple'
         else:
             self.color = 'darkorchid'

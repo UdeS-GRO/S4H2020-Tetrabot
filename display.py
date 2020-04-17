@@ -13,12 +13,12 @@ offset_y = 100
 # The window where the animation is displayed
 class AnimationCanvas:
 
-    def __init__(self, root, canvas):
+    def __init__(self,canvas):
         """
         @param canvas: window for animation visualization
         @param offset_3d_x and offset_3d_y : offset for 3D visualization
         """
-        self.root = root
+
         self.canvas = canvas
         self.offset_3d_x = 0
         self.offset_3d_y = 0

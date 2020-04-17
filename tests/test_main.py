@@ -26,7 +26,6 @@ class TestGui(unittest.TestCase):
         self.assertTrue(self.gui.var_running.get(),'Is running')
 
     def test_3d(self):
-        self.gui = Gui()
         self.assertTrue(self.gui.var_3d.get(), '3d not active at start-up')
 
 class TestDisplay(unittest.TestCase):
@@ -35,9 +34,9 @@ class TestDisplay(unittest.TestCase):
         x = 0
         y = 0
         length1 = 50
-        angle1 = 90
+        angle1 = 1
         length2 = 50
-        angle2 = 90
+        angle2 = 180
         color = 'red'
         self.leg = Leg(x,y,length1,angle1,length2,angle2,color)
         self.assertGreaterEqual(self.leg.posx0,0,'No x position valid')
@@ -46,6 +45,14 @@ class TestDisplay(unittest.TestCase):
         self.assertTrue(float(self.leg.angle1), 'No valid angle1')
         self.assertGreater(self.leg.length2, 0, 'No length2')
         self.assertTrue(float(self.leg.angle2), 'No valid angle2')
+
+    def test_AnimationCanvas(self):
+        self.root = Tk()
+        canvas = Canvas(self.root)
+        print(type(canvas))
+        self.animationcanvas = AnimationCanvas(canvas)
+        print(self.animationcanvas.canvas)
+        self.assertEqual(type(self.animationcanvas.canvas),type(canvas),'No canvas')
 
 class TestIK(unittest.TestCase):
     def test_IK1(self):
@@ -101,26 +108,19 @@ class TestPositions(unittest.TestCase):
 
 class TestMain(unittest.TestCase):
 
-    def test_not_moving(self):
+    def setUp(self) -> None:
         self.controler = Controler()
         self.controler.main_loop()
+
+    def test_not_moving(self):
         self.assertFalse(self.controler.gui.var_standing.get(),'The robot can move without command')
         self.assertFalse(self.controler.gui.var_running.get(),'The robot can move without command')
 
     def test_counter_init(self):
-        self.controler = Controler()
-        self.controler.main_loop()
-        time.sleep(1)
-        self.assertFalse(self.controler.step_index,'The step counter increments')
+        self.assertFalse(self.controler.step_index,'The step counter is increments')
 
-    def test_overall(self):
-        self.controler = Controler()
-        self.controler.main_loop()
+    def test_state0(self):
         self.assertEqual(self.controler.state, 0, 'State 0')
-        self.controler.gui.stand()
-        self.controler.gui.run()
-        time.sleep(2)
-        # self.assertEqual(self.controler.state, 0, 'State 1') # problem
 
 if __name__ == '__main__':
     unittest.main()

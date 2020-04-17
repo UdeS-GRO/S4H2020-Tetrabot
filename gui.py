@@ -36,8 +36,8 @@ class Gui:
 
         Label(self.root, text='TETRABOT PROJECT', font='Helvetica 28').pack(padx=30, pady=10)
 
-        canvas1 = Canvas(self.root, width=window_width, height=window_height, bg='#C0C0C0')
-        self.animation_frame = AnimationCanvas(self.root, canvas1)
+        canvas = Canvas(self.root, width=window_width, height=window_height, bg='#C0C0C0')
+        self.animation_frame = AnimationCanvas(canvas)
 
         Button(self.root, text='Stand Up', command=click_stand).pack(side=LEFT, padx=10, pady=10)
         Button(self.root, text='Run', command=click_run).pack(side=LEFT, padx=10, pady=10)

@@ -2,9 +2,6 @@ from gui import Gui
 from positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
 
 
-# Class to control parameters of the walk sequence and simulation
-# period = the period of the simulation loop
-# resolution = the resolution for the walk animation
 class Controler:
     """
     Class to control parameters of the walk sequence and simulation
@@ -18,6 +15,8 @@ class Controler:
         @param resolution : the resolution of the simulation
         @param period : the period of the resolution of the simulation
         @param delay : the pause between each walking sequence
+        @param state : case in the switch case
+        @param active_servo : the config with rasberry pi for the servos
         """
 
         self.step_index = 0

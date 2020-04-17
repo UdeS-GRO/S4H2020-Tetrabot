@@ -61,18 +61,16 @@ class Controler:
         elif self.state == 3:  # Futur state
             pass
 
+        if self.gui.var_servo_activation.get() and not self.active_servo:
+            self.active_servo = 1
+            from src.servo import init_servos, move as write_to_servos
+            init_servos()
 
-
- if self.gui.var_servo_activation.get() and not self.active_servo:
-        self.active_servo = 1
-        from src.servo import init_servos, move as write_to_servos
-        init_servos()
-
- step = self.steps[self.step_index]
-  self.gui.animate_step(step)
-   if self.active_servo:
-        write_to_servos(step)
-    self.gui.root.after(self.delay, self.main_loop)
+        step = self.steps[self.step_index]
+        self.gui.animate_step(step)
+        if self.active_servo:
+            write_to_servos(step)
+        self.gui.root.after(self.delay, self.main_loop)
 
 
 # Runs the main_loop of the object "controler". (starts the GUI, starts the main_loop)

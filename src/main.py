@@ -1,5 +1,5 @@
-from gui import Gui
-from positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
+from src.gui import Gui
+from src.positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
 
 
 class Controler:
@@ -63,7 +63,7 @@ class Controler:
 
         if self.gui.var_servo_activation.get() and not self.active_servo:
             self.active_servo = 1
-            from servo import init_servos, move as write_to_servos
+            from src.servo import init_servos, move as write_to_servos
             init_servos()
 
         step = self.steps[self.step_index]

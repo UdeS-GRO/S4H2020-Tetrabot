@@ -1,10 +1,10 @@
 import unittest
-from main import Controler
-from gui import Gui
-from display import AnimationCanvas, Leg
+from src.main import Controler
+from src.gui import Gui
+from src.display import AnimationCanvas, Leg
 from tkinter import *
-from inverse_kinematics import inverse_kinematic
-from positions import get_positions_from_delta_positions, steps_smoother, get_angles_from_positions
+from src.inverse_kinematics import inverse_kinematic
+from src.positions import get_positions_from_delta_positions, steps_smoother, get_angles_from_positions
 
 
 class TestGui(unittest.TestCase):

@@ -1,4 +1,4 @@
-from inverse_kinematics import inverse_kinematic
+from src.inverse_kinematics import inverse_kinematic
 
 
 def get_positions_from_walk_sequence():

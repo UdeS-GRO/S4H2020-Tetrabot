@@ -1,5 +1,5 @@
 from tkinter import *
-from display import AnimationCanvas
+from src.display import AnimationCanvas
 
 
 class Gui:

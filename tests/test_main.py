@@ -50,9 +50,7 @@ class TestDisplay(unittest.TestCase):
     def test_AnimationCanvas(self):
         self.root = Tk()
         canvas = Canvas(self.root)
-        print(type(canvas))
         self.animationcanvas = AnimationCanvas(canvas)
-        print(self.animationcanvas.canvas)
         self.assertEqual(type(self.animationcanvas.canvas),type(canvas),'No canvas')
 
 class TestIK(unittest.TestCase):

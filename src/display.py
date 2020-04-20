@@ -13,13 +13,13 @@ offset_y = 100
 
 class AnimationCanvas:
 
-    def __init__(self, root, canvas):
+    def __init__(self, canvas):
         """
         :param canvas: window for animation visualization
         :param offset_3d_x: x offset for 3D visualization
         :offset_3d_y: y offset for 3D visualization
         """
-        self.root = root
+
         self.canvas = canvas
         self.offset_3d_x = 0
         self.offset_3d_y = 0
@@ -39,7 +39,7 @@ class AnimationCanvas:
         self.canvas.pack(fill=BOTH, expand=1)
 
     # Displays the steps with the trajectory and the step of each joints (with the option of drawing in 3d)
-    def display_step(self, step, draw_trajectory=True, draw_3d=True):
+    def display_step(self, step, draw_trajectory, draw_3d):
         """
         :param step: steps array
         :param draw_trajectory: boolean option for trajectory visualization
@@ -52,10 +52,10 @@ class AnimationCanvas:
         # Delete tags before the redraw (display trajectory 'foot' or not 'foot')
         if draw_trajectory:
             self.canvas.delete('body', 'shoulder', 'thigh',
-                               'tibia', 'knee', 'ground')
-        else:
-            self.canvas.delete('body', 'shoulder', 'thigh',
                                'tibia', 'knee', 'foot', 'ground')
+        else:
+            self.canvas.delete('body', 'shoulder', 'thigh', 'tibia',
+                               'knee', 'foot', 'foot_trajectory', 'ground')
 
         # Shows the legs on the FrameCanvas
         for leg in legs:
@@ -70,7 +70,7 @@ class AnimationCanvas:
 
         # Ground
         off_y = 0
-        self.canvas.create_line(0, offset_y + thigh_length + tibia_length / 2 + off_y, 600,
+        self.canvas.create_line(0, offset_y + thigh_length + tibia_length / 2 + off_y, 1000,
                                 offset_y + thigh_length + tibia_length / 2 + off_y, tags='ground')
 
         # 2D <--> 3D
@@ -88,12 +88,13 @@ class AnimationCanvas:
 
         self.canvas.pack(fill=BOTH, expand=1, padx=10)
 
-# Leg class for each joint animation of the robot
-
 
 class Leg:
+    """
+    Class for each joint animation of the robot
+    """
 
-    def __init__(self, x, y, length1, angle1, length2, angle2, j):
+    def __init__(self, x, y, length1, angle1, length2, angle2, color):
         """
         :param posx0 and posy0: initial positions of X and Y
         :param length1 and length2: Physical lengths of the joints (J1,J2) of the robot
@@ -105,14 +106,16 @@ class Leg:
         self.angle1 = angle1
         self.length2 = length2
         self.angle2 = angle2
-        if j == 1:
+        if color == 1:
             self.color = 'purple'
         else:
             self.color = 'darkorchid'
 
-        self.width = 5
+        self.width = 10
+        self.width_dot = .75*self.width
+        self.width_trajectory = 2
 
-    # set_angles of each joint
+        # set_angles of each joint
     def set_angles(self, angle1, angle2):
         self.angle1 = angle1
         self.angle2 = angle2
@@ -138,13 +141,17 @@ class Leg:
                            width=self.width, fill=self.color, tags='tibia')
 
         # Shoulder points
-        canvas.create_oval(self.posx0 - 2, self.posy0 - 2, self.posx0 +
-                           2, self.posy0 + 2, fill='black', tags='shoulder')
+        canvas.create_oval(self.posx0 - self.width_dot, self.posy0 - self.width_dot, self.posx0 + self.width_dot,
+                           self.posy0 + self.width_dot, fill='black', tags='shoulder')
 
         # Knee points
-        canvas.create_oval(posx1 - 2, posy1 - 2, posx1 + 2,
-                           posy1 + 2, fill='black', tags='knee')
+        canvas.create_oval(posx1 - self.width_dot, posy1 - self.width_dot, posx1 + self.width_dot,
+                           posy1 + self.width_dot, fill='black', tags='knee')
 
         # Foot points
-        canvas.create_oval(posx2 - 2, posy2 - 2, posx2 + 2,
-                           posy2 + 2, fill='black', tags='foot')
+        canvas.create_oval(posx2 - self.width_dot, posy2 - self.width_dot, posx2 + self.width_dot,
+                           posy2 + self.width_dot, fill='black', tags='foot')
+
+        # Foot trajectory
+        canvas.create_oval(posx2 - self.width_trajectory, posy2 - self.width_trajectory, posx2 + self.width_trajectory,
+                           posy2 + self.width_trajectory, fill='black', tags='foot_trajectory')

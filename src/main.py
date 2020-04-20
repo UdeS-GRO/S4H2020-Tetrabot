@@ -1,11 +1,7 @@
-from .gui import Gui
-from .servo import init_servos, move as write_to_servos
-from .positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
+from src.gui import Gui
+from src.positions import get_positions_from_walk_sequence, steps_smoother, get_angles_from_positions, stand_up_move
 
 
-# Class to control parameters of the walk sequence and simulation
-# period = the period of the simulation loop
-# resolution = the resolution for the walk animation
 class Controler:
     """
     Class to control parameters of the walk sequence and simulation
@@ -17,13 +13,16 @@ class Controler:
         :param resolution: the resolution of the simulation
         :param period: the period of the resolution of the simulation
         :param delay: the pause between each walking sequence
+        :param state: case in the switch case
+        :param active_servo: the config with rasberry pi for the servos
         """
-        init_servos()
+
         self.step_index = 0
         self.resolution = 5
         self.period = 500
         self.delay = int(self.period / self.resolution)
         self.state = 0
+        self.active_servo = 0
 
         # sets the steps to the desired walk sequence and the resolution
         self.steps = get_angles_from_positions(
@@ -35,8 +34,8 @@ class Controler:
     # Main loop for the animations and walk sequence of the robot
     def main_loop(self):
         # Checks if the GUI is opened and running (for the simulation)
-        stand_up = self.gui.is_standing()
-        run = self.gui.is_running()
+        stand_up = self.gui.var_standing.get()
+        run = self.gui.var_running.get()
 
         if self.state == 0:  # Wait command stand_up
             if stand_up:
@@ -62,9 +61,15 @@ class Controler:
         elif self.state == 3:  # Futur state
             pass
 
+        if self.gui.var_servo_activation.get() and not self.active_servo:
+            self.active_servo = 1
+            from src.servo import init_servos, move as write_to_servos
+            init_servos()
+
         step = self.steps[self.step_index]
         self.gui.animate_step(step)
-        write_to_servos(step)
+        if self.active_servo:
+            write_to_servos(step)
         self.gui.root.after(self.delay, self.main_loop)
 
 

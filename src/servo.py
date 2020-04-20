@@ -1,8 +1,10 @@
 from adafruit_servokit import ServoKit
 from math import pi
 
+
 def rad_to_deg(rad):
     return rad*180/pi
+
 
 kit = ServoKit(channels=16)
 
@@ -17,7 +19,7 @@ offset = [off_haut_gauche, off_haut_droite, off_bas_gauche, off_bas_droite]
 def format_step_for_servo(step):
     formatted_step = []
     for leg_angles in step:
-        angle0 = rad_to_deg(leg_angles[0]) + 90
+        angle0 = rad_to_deg(leg_angles[0])
         angle1 = rad_to_deg(leg_angles[1])
         formatted_step.append([angle0, angle1])
 
@@ -36,7 +38,7 @@ def init_servos():
 def move(step):
     position = format_step_for_servo(step)
     """
-     @param position: position array for each joint
+     :param position: position array for each joint
      """
     # haut gauche
     kit.servo[0].angle = offset[0][0] + .9 * position[0][0]
